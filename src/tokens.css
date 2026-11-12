@@ -1,0 +1,14 @@
+:root {
+  color-scheme: light;
+  --surface: #f8f8f5;
+  --paper: #ffffff;
+  --ink: #252b29;
+  --muted: #626b66;
+  --accent: #32634e;
+  --line: #dce0d9;
+  --hover: #eef1eb;
+  --font-sans: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif:
+    'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  --font-mono: 'Cascadia Code', Consolas, monospace;
+}

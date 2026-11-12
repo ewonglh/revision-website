@@ -1,0 +1,25 @@
+name: Feature / implementation slice
+description: Propose a bounded end-to-end change for triage
+labels: [enhancement, needs-triage]
+body:
+  - type: input
+    id: parent
+    attributes:
+      label: Parent stage
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome
+    validations:
+      required: true
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: Boundaries, dependencies, and validation
+      description: Include non-goals, blockers, and the smallest useful behaviour-test seam.

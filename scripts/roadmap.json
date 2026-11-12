@@ -1,0 +1,413 @@
+{
+  "stages": [
+    {
+      "id": "S01",
+      "title": "Evaluate ingestion, marking and Cloudflare backend architecture",
+      "phase": "personal",
+      "area": "platform",
+      "blockers": [],
+      "spec": "Sections 3, 6, 8 and 12; F01–F05, F08; A12–A14",
+      "outcome": "Select an architecture from representative ST2132 and CS2100 evidence, with measured marking limits and personal/pilot operating costs.",
+      "exit": [
+        "Review a small representative pack covering multipart maths, proofs, MIPS, circuits, keyed choices and supporting source excerpts; use safe synthetic fixtures until private inputs are available.",
+        "Compare parsing/repair fidelity, source anchors, retrieval support and rubric/key handling; evaluate correct alternatives, partial work and justified abstention separately by format.",
+        "Decide service boundaries for identity, storage, durable imports/marking, retrieval and exam deadlines alongside the static Pages frontend; record tradeoffs in ADRs.",
+        "Define portable data/API contracts, quality gates, finite retries/model escalation, monthly cost assumptions and a path from personal to invited use."
+      ],
+      "questions": [
+        "Which semester-specific instructions and trusted solutions are available?",
+        "Which typed/handwritten answer workflows and provisional marks are acceptable?",
+        "What is the owner's monthly budget and likely library/answer volume?"
+      ],
+      "nonGoals": "Do not import an entire textbook, deploy infrastructure or choose providers without evidence. This stage is research/refinement, not permission to implement the whole backend."
+    },
+    {
+      "id": "S02",
+      "title": "Design the quiet revision workspace and answer interactions",
+      "phase": "personal",
+      "area": "design",
+      "blockers": [],
+      "spec": "Sections 3 and 8.1; F06–F12; A15",
+      "outcome": "Establish a beautiful, minimal study UI with brief copy and usable maths, code and diagram workflows.",
+      "exit": [
+        "Refine navigation and module context, daily plan, question/working/feedback hierarchy and source evidence using synthetic scenarios.",
+        "Cover keyboard and narrow layouts, 200% zoom, long equations/code, circuit images and loading/empty/error/pending states.",
+        "Define semantic tokens, typography, spacing and a small set of reusable interaction patterns without an oversized component framework.",
+        "Obtain human visual feedback on the affected desktop/mobile scenarios; record accepted decisions and performance goals."
+      ],
+      "questions": [
+        "What is the most comfortable proof-working and circuit-input workflow?",
+        "Which study interactions need side-by-side evidence versus progressive disclosure?"
+      ],
+      "nonGoals": "No marketing site, decorative metrics, exhaustive design system or production data integration. The current starter is a direction, not final UI acceptance."
+    },
+    {
+      "id": "S03",
+      "title": "Create private module offerings and versioned exam profiles",
+      "phase": "personal",
+      "area": "platform",
+      "blockers": ["S01", "S02"],
+      "spec": "F01–F02; Sections 3 and 5; A08, A16",
+      "outcome": "The owner can securely create ST2132/CS2100 offerings, define examinable skills and configure each assessment's rules.",
+      "exit": [
+        "Implement the chosen identity/session and ownership model end to end, with two isolated module offerings and no public-source defaults.",
+        "Support semester, exam date/timezone, syllabus/topics/skills, excluded scope and provisional missing instructions.",
+        "Version duration/sections/marks, optional questions, allowed tools/resources, navigation and scoring policies.",
+        "Verify cross-module isolation, configuration validation and history semantics without baking one semester's exam rules into code."
+      ],
+      "questions": [
+        "Which identity mechanism is appropriate for the personal release?",
+        "What exact exam instructions/conventions should seed each profile?"
+      ],
+      "nonGoals": "No public signup, billing, social presence or speculative monorepo."
+    },
+    {
+      "id": "S04",
+      "title": "Import and review real sources, questions and solutions",
+      "phase": "personal",
+      "area": "content",
+      "blockers": ["S03"],
+      "spec": "F03–F05; Section 6.3; A01, A12",
+      "outcome": "Import a small real question set and references, repair extraction, then publish an intact private version ready for practice.",
+      "exit": [
+        "Support manual/pasted questions plus representative PDF/image inputs selected during architecture evaluation, with durable progress and retryable errors.",
+        "Preserve multipart nesting, shared context, marks, choices, equations, assets and original/source anchors; flag OCR and diagram ambiguity for review.",
+        "Keep prompt, key, rubric and source provenance distinct; label official, user-reviewed and AI-proposed solutions honestly.",
+        "Review/publish/retire revisions, detect exact duplicates, and show actionable repair state without changing old attempts."
+      ],
+      "questions": [
+        "Which source formats are actually in the representative pack?",
+        "How are protected solutions and reserved papers separated at import?"
+      ],
+      "nonGoals": "No direct Canvas integration, full-library bulk import or AI-written practice bank."
+    },
+    {
+      "id": "S05",
+      "title": "Attempt multipart mathematical problems with durable working",
+      "phase": "personal",
+      "area": "practice",
+      "blockers": ["S04"],
+      "spec": "F07; Section 5.1; A01–A04, A09",
+      "outcome": "Attempt an intact ST2132 problem with readable notation, part dependencies and recoverable saved work.",
+      "exit": [
+        "Keep assumptions/shared data visible and support part-level text/math working with accessible preview and optional confirmed image transcription.",
+        "Autosave/restore drafts, show saved/unsynced states and preserve immutable submissions across refresh/reconnect.",
+        "Separate skip, explicit blank, timeout and unreadable input; disclose when part-level feedback makes later work assisted.",
+        "Demonstrate estimation/testing/Fisher-information style problems without splitting them into unrelated drills."
+      ],
+      "questions": [
+        "Which editor/input approach meets the owner's normal working habits?",
+        "When is feedback allowed within a dependent problem?"
+      ],
+      "nonGoals": "No formal proof verification, generic handwriting promise or generated questions."
+    },
+    {
+      "id": "S06",
+      "title": "Practise keyed choices and applied short answers",
+      "phase": "personal",
+      "area": "practice",
+      "blockers": ["S04"],
+      "spec": "F07–F08; Sections 5.3 and 6.1; A07, A09",
+      "outcome": "Practise MCQs, multiple-select items and short applied responses with explicit answer/reasoning policy.",
+      "exit": [
+        "Render original prompt/choice/diagram context and preserve selections and short-answer work.",
+        "Score single-choice and multiple-select against trusted keys and explicit exact-set/partial-credit rules.",
+        "Offer required, optional or sampled explanations by mode; optional blank reasoning is unassessed, not an inferred misconception.",
+        "Separate exam pick score, reasoning diagnosis, self-reported confidence and assistance, with keyboard behaviour that does not intercept text input."
+      ],
+      "questions": [
+        "Which actual CS2100 choice-scoring policies need support?"
+      ],
+      "nonGoals": "No unsupported partial-credit assumptions or topic mastery based on one correct choice."
+    },
+    {
+      "id": "S07",
+      "title": "Capture MIPS programs and circuit-design answers",
+      "phase": "personal",
+      "area": "practice",
+      "blockers": ["S04"],
+      "spec": "F07; Sections 5.2–5.3; A05–A06, A09",
+      "outcome": "Answer real CS2100 coding and design questions with preserved formatting and clear interpretation boundaries.",
+      "exit": [
+        "Provide usable MIPS code input retaining whitespace and a readable view of supplied ISA/register/memory conventions.",
+        "Accept circuit drawing/images plus expression, truth table or confirmed structural description when suitable.",
+        "Require confirmation for ambiguous extracted labels/connections; preserve original evidence and offer review/self-marking paths.",
+        "Save/restore these responses with accessible narrow/keyboard interactions and without pretending a simulator or circuit checker ran."
+      ],
+      "questions": [
+        "Which MIPS subset/conventions appear in the supplied questions?",
+        "Which diagram representation can the learner confirm accurately?"
+      ],
+      "nonGoals": "No general-purpose IDE, circuit editor or simulator unless a subsequent scoped decision justifies it."
+    },
+    {
+      "id": "S08",
+      "title": "Return source-grounded criterion marks with honest uncertainty",
+      "phase": "personal",
+      "area": "assessment",
+      "blockers": ["S04"],
+      "spec": "F08; Section 6; A09, A12–A14, A16",
+      "outcome": "A saved attempt produces versioned feedback with criterion marks, relevant authorised evidence and explicit unassessed parts.",
+      "exit": [
+        "Deliver queued/marking/complete/provisional/failed states through the chosen bounded job path; retries do not duplicate attempts or learning events.",
+        "Scope retrieval by module, semester, source revision, access and solution-release policy; use full question context, rubric and answer.",
+        "Show criterion-level reasons, marks that sum correctly, actual checker coverage and valid anchored citations; abstain on inadequate evidence.",
+        "Support focused follow-up, disputed marks, versioned regrades and labelled self-assessment while preserving the original submission/result.",
+        "Evaluate unsupported feedback, valid alternatives and instruction attacks in documents/answers; protect other modules and reserved solutions."
+      ],
+      "questions": [
+        "What quality thresholds and model routes passed the architecture-stage evaluation?",
+        "Which retrieval/source-precedence conflicts need explicit review?"
+      ],
+      "nonGoals": "No claim that retrieval verifies proofs or that model confidence is calibrated reliability."
+    },
+    {
+      "id": "S09",
+      "title": "Evaluate and deliver ST2132 mathematical marking",
+      "phase": "personal",
+      "area": "assessment",
+      "blockers": ["S05", "S08"],
+      "spec": "Section 5.1; F08; A02–A04",
+      "outcome": "Receive useful, evaluated partial-credit feedback on ST2132 derivations, tests, estimation and proofs.",
+      "exit": [
+        "Assess assumptions, support/domain constraints, valid alternative derivations and criterion-specific logical obligations.",
+        "Handle test hypotheses/statistic/null distribution/rejection or p-value/conclusion as appropriate to the actual question.",
+        "Respect sample versus observation Fisher information and supplied parametrisations; apply declared follow-through/double-penalty rules.",
+        "Evaluate correct, partial, wrong and ambiguous representative answers; disclose provisional proof review and escalate/abstain when needed."
+      ],
+      "questions": [
+        "Which official rubrics or reviewed alternatives establish the scoring contract?"
+      ],
+      "nonGoals": "No exact-word matching, assumed regularity conditions or formal-verification claims."
+    },
+    {
+      "id": "S10",
+      "title": "Evaluate and deliver CS2100 applied, MIPS and circuit feedback",
+      "phase": "personal",
+      "area": "assessment",
+      "blockers": ["S06", "S07", "S08"],
+      "spec": "Section 5.2; F08; A05–A07",
+      "outcome": "Receive evaluated CS2100 feedback that accepts valid alternatives and states exactly what was checked.",
+      "exit": [
+        "Assess applied intermediate reasoning alongside trusted objective answer scores.",
+        "Review MIPS behaviour and required conventions; distinguish semantic review, assembly and executed tests in every result.",
+        "Assess confirmed circuit interpretation against functional/design criteria; valid equivalent forms are not rejected for differing appearance.",
+        "Evaluate representative correct/partial/wrong programs and circuits; keep unreadable or unchecked claims unresolved.",
+        "Decide whether a bounded deterministic checker is justified now; if adopted, test its limits and report coverage rather than treating tests as universal proof."
+      ],
+      "questions": [
+        "Which assembly/execution/equivalence checks are reliable enough and worth their operational cost?"
+      ],
+      "nonGoals": "No invented simulation results, arbitrary-language sandbox or general circuit-verification promise."
+    },
+    {
+      "id": "S11",
+      "title": "Review weaknesses and plan study across both modules",
+      "phase": "personal",
+      "area": "learning",
+      "blockers": ["S09", "S10"],
+      "spec": "F06, F09–F10; A08, A13–A14",
+      "outcome": "Turn assessed attempts into an explainable, manageable daily plan and retained mistake history.",
+      "exit": [
+        "Track topic and skill evidence separately, preserving first/repeat, assisted/independent and immediate/delayed performance.",
+        "Retain mistakes and evidence-supported misconceptions, allow correction/dispute, and reopen recurring weaknesses without erasing history.",
+        "Schedule delayed retrieval and new exposure using one total time budget, task-duration estimates, excluded days and exam priorities.",
+        "Explain infeasible coverage and indivisible long-problem overruns; revise after missed days without unbounded backlog.",
+        "Ensure pending/failed/regraded assessments update learning evidence appropriately and exactly once."
+      ],
+      "questions": [
+        "What review intervals and minimum independent evidence are justified initially?"
+      ],
+      "nonGoals": "No uncalibrated recall percentages or mastery inferred from memorised MCQ variants."
+    },
+    {
+      "id": "S12",
+      "title": "Run intact papers and timed mocks without solution leakage",
+      "phase": "personal",
+      "area": "practice",
+      "blockers": ["S05", "S06", "S07", "S08"],
+      "spec": "F02, F11; A10–A11",
+      "outcome": "Take a real or assembled paper under its actual timing/navigation/marking rules and preserve work through interruption.",
+      "exit": [
+        "Preserve sections, optional questions, marks, ordering, context and all supported answer formats in the selected profile.",
+        "Persist authoritative deadlines; refresh/navigation cannot reset them; define clear unsynced and expiry behaviour.",
+        "Reserve unseen papers and prevent protected answers leaking through ordinary practice, retrieval, hints, source previews or variants.",
+        "Release feedback at the right time and distinguish pending written marks from final scores; disclose prior exposure and coverage shortfalls."
+      ],
+      "questions": [
+        "What are actual ST2132/CS2100 backtracking, pause and answer-release rules?"
+      ],
+      "nonGoals": "No certified proctoring environment, invented exam mix or silent fallback to all-MCQ."
+    },
+    {
+      "id": "S13",
+      "title": "Support personal notes, explain-back and short recall",
+      "phase": "personal",
+      "area": "learning",
+      "blockers": ["S08"],
+      "spec": "F12; A15",
+      "outcome": "Capture contextual notes and practise definitions, formula conditions and explanations without displacing applied work.",
+      "exit": [
+        "Create/search/edit/pin/delete personal notes with saved state, context links and deliberate recovery from deletion.",
+        "Offer explain-back on selected outcomes using scoped course evidence and honest feedback.",
+        "Offer short typed/revealed flashcards with self-rated versus checked evidence distinguished.",
+        "Keep personal notes separate from authoritative grading sources and ensure these activities do not substitute for proof/coding/design evidence."
+      ],
+      "questions": [
+        "Which small recall deck is useful for the first two modules?"
+      ],
+      "nonGoals": "No automatic publication of personal notes or requirement to justify every trivial fact at length."
+    },
+    {
+      "id": "S14",
+      "title": "Validate and launch the personal revision release",
+      "phase": "personal",
+      "area": "platform",
+      "blockers": ["S11", "S12", "S13"],
+      "spec": "Sections 8–11; A01–A15",
+      "outcome": "Use the complete personal loop on Cloudflare Pages with recoverable work, clear costs and known assessment limits.",
+      "exit": [
+        "Exercise the full representative two-module journeys and record relevant acceptance evidence and remaining provisional checker limits.",
+        "Validate authentication/access, private-source handling, export/deletion/retention and source-revision lifecycle.",
+        "Verify interrupted imports/drafts/marking/timed papers, finite retry/budget limits, cancellation and operator diagnostics.",
+        "Check responsive/keyboard/zoom and human visual acceptance; set and measure asset, load and interaction budgets.",
+        "Provision authorised deployment configuration and document environment/rollback/runbook steps without committing secrets or adding unrequested recurring workers."
+      ],
+      "questions": [
+        "What personal-use acceptance evidence, operating budget and deployment account access are needed?"
+      ],
+      "nonGoals": "No public signup, monetisation or promise that all operation fits a free tier."
+    },
+    {
+      "id": "S15",
+      "title": "Import accessible Canvas questions through an authorised connector",
+      "phase": "expansion",
+      "area": "content",
+      "blockers": ["S14"],
+      "spec": "F05",
+      "outcome": "Bring permitted Canvas material into the existing reviewed importer without altering quizzes or grades.",
+      "exit": [
+        "Determine institution/account access and supported quiz formats using bounded sample reads.",
+        "Preview/select imports, preserve assets/provenance, paginate, handle missing keys/permissions and unsupported formats honestly.",
+        "Repeat imports detect revisions/duplicates; credentials stay out of source content and shared exports.",
+        "Provide a documented one-off browser acquisition fallback only for explicitly authorised visible content."
+      ],
+      "questions": [
+        "Which Canvas APIs/exports are accessible to this student account?"
+      ],
+      "nonGoals": "No hidden-key extraction, quiz submission, grade mutation or generic continuous browser scraper."
+    },
+    {
+      "id": "S16",
+      "title": "Generate reviewed, source-supported practice variants",
+      "phase": "expansion",
+      "area": "assessment",
+      "blockers": ["S14"],
+      "spec": "F13",
+      "outcome": "Request new practice matching a skill/format and publish only answerable reviewed items.",
+      "exit": [
+        "Generate from selected authorised sources with explicit type/difficulty/marks/time and bounded cost.",
+        "Attach proposed solution/rubric, provenance and family identity; check ambiguity, answer validity, constraints and near-duplicates.",
+        "Review/edit/reject before normal scheduling and honour reserved-paper protection.",
+        "Distinguish close-variant performance from independent novel transfer and generated content from official questions."
+      ],
+      "questions": [
+        "Which generation tasks pass mathematical/program/circuit quality gates?"
+      ],
+      "nonGoals": "No automatic publication of unverified keys or claims of predicting future exam content."
+    },
+    {
+      "id": "S17",
+      "title": "Extend assessment to essays with module-specific rubrics",
+      "phase": "expansion",
+      "area": "assessment",
+      "blockers": ["S14"],
+      "spec": "Section 5.3; F08, F13",
+      "outcome": "Revise an essay-based module using defensible rubric feedback rather than generic keyword scores.",
+      "exit": [
+        "Select an actual target module and reviewed exemplar/rubric set before implementation.",
+        "Support extended drafting/submission and criteria for argument, evidence, accuracy and structure as required.",
+        "Accept multiple defensible positions, cite relevant sources, preserve uncertainty and evaluate challenged marks.",
+        "Integrate the essay skill/time profile with existing papers and learning evidence without diluting the first two modules."
+      ],
+      "questions": [
+        "Which future module and essay conventions justify this expansion?"
+      ],
+      "nonGoals": "No universal essay marker or immediate ST2132/CS2100 release dependency."
+    },
+    {
+      "id": "S18",
+      "title": "Evaluate useful recall and exam-readiness forecasts",
+      "phase": "expansion",
+      "area": "learning",
+      "blockers": ["S14"],
+      "spec": "F10; Section 11",
+      "outcome": "Show only forecasts that improve planning and are supported by enough independent learning evidence.",
+      "exit": [
+        "Define precisely what is forecast and distinguish item recall from full-paper performance across skills.",
+        "Evaluate calibration with delayed independent outcomes and communicate sparse-data/uncertainty limitations.",
+        "Compare against the baseline evidence-only plan and avoid introducing misleading precision.",
+        "Record the decision to ship, revise or withhold forecasts; retain useful evidence-based states in every case."
+      ],
+      "questions": ["Is there enough real data to validate a forecast at all?"],
+      "nonGoals": "No untested exam percentages or model self-confidence displayed as empirical probability."
+    },
+    {
+      "id": "S19",
+      "title": "Share selected module content with an invited group",
+      "phase": "expansion",
+      "area": "sharing",
+      "blockers": ["S14"],
+      "spec": "F14; Sections 3.3 and 8.4; A16",
+      "outcome": "Invite students to approved content while preserving each learner's private work and sources.",
+      "exit": [
+        "Define owner/editor/learner permissions and separate source visibility from question visibility.",
+        "Implement explicit publishing/invites, independent progress, private supplements, content corrections and reports.",
+        "Verify isolation through retrieval/citations, direct links, exports, regrades and retired content, not just visible navigation.",
+        "Set per-user/project budgets and agreed retention/removal policies; run a small monitored pilot with documented failure recovery."
+      ],
+      "questions": [
+        "Which materials can be shared, and how many pilot students fit the budget?"
+      ],
+      "nonGoals": "No public signup or implicit sharing of notes, answers, credentials or every source in the owner's library."
+    },
+    {
+      "id": "S20",
+      "title": "Prepare optional public onboarding and sustainable operation",
+      "phase": "public",
+      "area": "sharing",
+      "blockers": ["S19"],
+      "spec": "F14; Sections 8.3–8.4 and Phase C",
+      "outcome": "Decide whether and how broader free access can run within demonstrated service and content constraints.",
+      "exit": [
+        "Use pilot evidence to decide quotas, abuse controls, moderation/report handling and operating budget stop behaviour.",
+        "Define onboarding, content ownership/licensing and removal policies, service diagnostics and release/rollback ownership.",
+        "Measure performance/concurrency and privacy/recovery under realistic usage before opening signup.",
+        "Retain saved work and explain service limits when new expensive jobs are unavailable."
+      ],
+      "questions": [
+        "Should access remain invite-only if budget or content constraints make public signup unsuitable?"
+      ],
+      "nonGoals": "No billing, mandatory social features, or public rollout before pilot evidence."
+    },
+    {
+      "id": "S21",
+      "title": "Resolve the lint toolchain's transitive minimatch advisory",
+      "phase": "personal",
+      "area": "tooling",
+      "blockers": [],
+      "spec": "Repository foundation / development dependency maintenance",
+      "outcome": "Keep the lint toolchain supported while resolving the known glob-matching advisory without an unreviewed transitive major override.",
+      "exit": [
+        "Reproduce npm audit for GHSA-g3hv-75wg-m249 and determine actual reachability in local/CI linting; it currently affects development dependencies, not the React production dependency tree.",
+        "Prefer upstream compatible fixes; if considering an override or alternate linter, evaluate changed glob semantics and all affected configuration paths.",
+        "Run clean-install formatting/lint/typecheck/build and relevant tooling checks; document the supported dependency decision.",
+        "Do not describe a dev-only advisory as a deployed application exploit or use npm audit fix --force blindly."
+      ],
+      "questions": [
+        "Have ESLint/typescript-eslint released a compatible fixed dependency range by implementation time?"
+      ],
+      "nonGoals": "No forced package downgrades or arbitrary major dependency overrides solely to silence audit output."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+name: Bug
+description: Report unexpected behaviour
+labels: [bug, needs-triage]
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and safe evidence
+      description: Browser/device and relevant logs; omit private answers, course files, credentials, and tokens.

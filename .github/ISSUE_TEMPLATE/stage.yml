@@ -1,0 +1,28 @@
+name: Stage / epic
+description: A high-level outcome to triage into smaller implementation issues
+title: '[Stage] '
+labels: [enhancement, needs-triage, epic]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: What can the student do when this stage is complete?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Stage exit criteria
+      description: Observable outcomes; these are refined into bounded child issues.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and decisions
+      description: Link blockers and identify questions to settle during triage.
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and non-goals

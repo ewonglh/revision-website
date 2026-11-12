@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+package-lock.json
+.scratch
+.agent-state
+private
+uploads
