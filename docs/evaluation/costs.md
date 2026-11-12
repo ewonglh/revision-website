@@ -1,6 +1,41 @@
 # Cost worksheet
 
-Checked against fetched official documentation on 12 November 2026. USD list prices before tax/FX, shared-account allowance consumption and discounts. Run `node evaluation/costs.mjs` to reproduce arithmetic. These are explicit research scenarios, not an owner-approved budget or measured usage. One answer means one complete marking request, potentially a multipart question, not one keystroke or criterion.
+Checked against fetched official documentation on 12 November 2026. Run `node evaluation/costs.mjs` to reproduce arithmetic. The owner target below supersedes the earlier illustrative personal/pilot volumes. Prices are USD before tax/FX. The owner reports official-price parity for their custom DeepSeek provider; actual passthrough and usage are not yet tested.
+
+## Owner target and custom-provider feasibility
+
+The owner confirmed **DeepSeek-V4.1-Flash-1017** through a custom provider at official API rates, billing in microdollars, a $20/month AI budget, **1,000 submitted answers/day**, and a library estimate below 100 MB with text extraction and retained diagrams. Typed answers come first, with provisional AI marking and manual review. Use USD and 1 microdollar = USD 0.000001, so the monthly cap is 20 million microdollars. No total infrastructure budget was specified.
+
+At 1,000 submitted answers/day over 30 days, the target is **30,000 answers/month**, allowing **$0.0006667 (666.67 microdollars) per answer** averaged across the month. With a hypothetical 10% repeat allowance and one primary call per answer, each primary call must average at most $0.0006061 before any separate escalation, ingestion or embedding spend. Allocate those other AI costs first if they share the $20 cap. Deterministic keyed scoring need not call an LLM for every response; explanations may still require review. Multiple part-level calls per submission must count towards this same budget.
+
+For the earlier illustrative 8,000-input/2,000-output token envelope, 30,000 calls plus 10% repeats consume 264 million input and 66 million output tokens. With uncached rates per million tokens in the same currency as the budget, affordability requires `264 × inputRate + 66 × outputRate <= 20`. This is a constraint, not a price estimate or a claim that this context length is necessary. A part-level response might need much less context; multipart proof assessment may need more. Measure tokens by format and preserve rubric/evidence coverage when reducing context.
+
+Official pricing [S19] maps `deepseek-flash` to the exact requested version; the custom-provider model identifier still needs confirmation before calls. The owner reports official-price parity. These are therefore price scenarios under that report, not measured reseller bills:
+
+| USD per million tokens | Cache-miss input | Cache-hit input | Output |
+| ---------------------- | ---------------- | --------------- | ------ |
+| Off-peak               | 0.15             | 0.003           | 0.60   |
+| Peak                   | 0.30             | 0.006           | 1.20   |
+
+In microdollars **per token**, these have the same numeric values: off-peak uncached input costs 0.15 microdollars/token, not 0.15 dollars/token. Official peak hours are 01:00–04:00 and 06:00–10:00 UTC on weekdays except Chinese public holidays [S19] (09:00–12:00 and 14:00–18:00 Singapore time). Confirm that the custom provider passes through time bands/cache discounts; do not assume all interactive answers can wait for off-peak processing.
+
+| Illustrative tokens per marking call; 30k answers and 10% repeats | Off-peak USD/month | Peak USD/month |
+| ----------------------------------------------------------------- | ------------------ | -------------- |
+| 8,000 input / 2,000 output, uncached                              | 79.20              | 158.40         |
+| 2,000 input / 500 output, uncached                                | 19.80              | 39.60          |
+| 2,000 input / 500 output, assumed 90% input-cache hits            | 11.0682            | 22.1364        |
+
+These are marking-only scenario costs. Output tokens must cover billed thinking and final output, not just visible feedback. Thinking mode is enabled by default at high effort in the direct API [S21]; pin the actual mode/output limit and measure usage rather than letting the default expand cost. Truncation must lead to review, not a fabricated completed mark. The compact context/500-token output and 90% hit fraction have **not** been validated for any course format.
+
+The $19.80 compact uncached off-peak scenario leaves only $0.20 for any other work within the cap. Even a short reply may need more internal reasoning or evidence. Cache hits require reusable persisted prefixes and are best effort [S20]; distinct question/rubric/source revisions and changing permissions reduce reuse. Use returned cache-hit/miss usage and never reuse evidence across access scopes for savings. There is no evidence yet that 30,000 source-backed written marks fit $20 reliably. The calculator leaves observed custom-provider cost null; quality and measured consumption remain gates.
+
+Before paid evaluation, confirm the custom-provider alias, billing/usage fields, time-band/cache passthrough, request limits and retention terms; receive the reviewed private pack and bound each run within the remaining $20 monthly AI budget. No API key or paid request has been used. Source size cannot establish token cost; actual usage is authoritative [S22].
+
+The below-100-MB estimate does not determine page count, chunk count, model tokens or monthly response storage. Record original files, extracted text, retained diagrams and accumulated answer/result data separately. Keep immutable authorised originals for source anchors and repair; parsing text does not replace them. Earlier 2/20-GB storage scenarios below are sensitivity examples, not the owner's confirmed library size.
+
+## Earlier illustrative scenarios
+
+In the retained scenarios only, one answer means one complete marking request, potentially multipart. The pilot audience, page counts and answer lengths remain illustrative. They do not multiply the newly reported 1,000 daily responses by an invented user count.
 
 ## Inputs and dated prices
 

@@ -4,7 +4,7 @@ Status: **proposed, not accepted**. Date: 12 November 2026. Parent: [#2](https:/
 
 ## Context
 
-ADR 0001 accepts the static React/Vite frontend on Cloudflare Pages. Source ingestion, private persistence, retrieval and criterion marking need a backend, but no representative course pack, reviewed answer benchmark or owner budget is available. The reference site supplies no evidence of its internal architecture. A documentation comparison and small synthetic baseline can bound the next experiments but cannot select reliable marking routes.
+ADR 0001 accepts the static React/Vite frontend on Cloudflare Pages. Source ingestion, private persistence, retrieval and criterion marking need a backend, but no representative course pack or reviewed answer benchmark has been received. The owner can supply lecture notes/tutorials/solutions for both modules and CS2100 Canvas questions; prefers typed answers with provisional AI marks/manual review; and targets $20/month for DeepSeek through a custom provider at about 1,000 responses/day and a library below 100 MB. The owner specifies DeepSeek-V4.1-Flash-1017 at official API rates, microdollar billing (USD), and 1,000 submitted answers/day. Custom-provider passthrough and actual consumption remain untested. The reference site supplies no evidence of its internal architecture. A documentation comparison and small synthetic baseline can bound the next experiments but cannot select reliable marking routes.
 
 ## Proposed decision
 

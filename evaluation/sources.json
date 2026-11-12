@@ -142,5 +142,37 @@
     "checked": "2026-11-12",
     "responseSha256": "ec78860e0587bfa52e25122276c6f42e03224171ec9654932b5852db406bf3d6",
     "supports": "Region/mode-specific CPU, memory, transfer and job billing; no unmeasured fixed compute quote."
+  },
+  {
+    "id": "S19",
+    "title": "DeepSeek models and pricing",
+    "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "checked": "2026-11-12",
+    "responseSha256": "027bba6c9e038c25b3cb760ef9f2c803f1325489ebb28c57a97947041033789b",
+    "supports": "deepseek-flash maps to DeepSeek-V4.1-Flash-1017; peak/off-peak cache-miss/cache-hit/output USD prices and timing."
+  },
+  {
+    "id": "S20",
+    "title": "DeepSeek context caching",
+    "url": "https://api-docs.deepseek.com/guides/kv_cache/",
+    "checked": "2026-11-12",
+    "responseSha256": "d36e5887185ebb0b9957a96b33d156549f1e563419e9f8c5564717302c6a8b36",
+    "supports": "Persisted matching prefix units, best-effort hits, expiration and cache-hit/miss usage fields."
+  },
+  {
+    "id": "S21",
+    "title": "DeepSeek thinking mode",
+    "url": "https://api-docs.deepseek.com/guides/thinking_mode/",
+    "checked": "2026-11-12",
+    "responseSha256": "9b6cbb9cc82b7d631751fa14fbb046a4fd3f21029b5e73f8fa68ca00592acccb",
+    "supports": "Thinking is enabled by default at high effort; mode/settings and usage must be controlled."
+  },
+  {
+    "id": "S22",
+    "title": "DeepSeek token usage",
+    "url": "https://api-docs.deepseek.com/quick_start/token_usage/",
+    "checked": "2026-11-12",
+    "responseSha256": "ca3e3de62832560f6417e94cb659c77f6effeea8f8a32f7ab550edba38ef7b95",
+    "supports": "Token estimates differ from actual returned usage; image tokens require separate accounting."
   }
 ]

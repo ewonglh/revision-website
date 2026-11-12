@@ -4,6 +4,8 @@
 
 Personal, exam-aligned revision for ST2132 and CS2100. Begin with imported real questions, then add generated practice and invited sharing. The frontend starts as a static scaffold; backend and marking implementation remain open.
 
+The first release prioritises typed answers with provisional AI marks and manual review. Owner evaluation targets: $20/month for DeepSeek through a custom API provider, about 1,000 responses/day and a library below 100 MB with parsed text and retained diagrams. The owner specifies DeepSeek-V4.1-Flash-1017 at official API rates, microdollar billing and 1,000 submitted answers/day. Custom-provider billing passthrough and actual storage/token use remain untested; these targets do not establish affordability or marking reliability.
+
 ## Terms
 
 | Term                 | Meaning                                                                                  |

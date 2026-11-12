@@ -26,3 +26,14 @@ All sources below were fetched and read on **12 November 2026** through public H
 A speculative Cloudflare AI Search metadata-filtering URL returned HTTP 404 and was not used as evidence. No hosted RAG access-control capability is inferred from that failed fetch. Mistral's general marketing price page did not establish a usable OCR SKU price; the actual model card S13 supplied the pinned price instead. Current OCR documentation redirects to its Studio document-processing path (S12). OpenAI's earlier PDF guide redirects to file inputs (S15).
 
 Capability documentation establishes what is advertised, not measured equation/wire recognition or grading accuracy. Provider data retention, regional processing, consent, model availability and final account quotas must be reviewed against actual private inputs before #27–#29. No credentials were requested or used.
+
+## Owner-selected DeepSeek route
+
+Fetched and read after the owner specified DeepSeek-V4.1-Flash-1017 and official-price parity for a custom provider. These pages establish direct-API terms, not observed reseller behaviour. No inference calls were made.
+
+| ID  | Official page                                                                     | Claims used / limits                                                                                              |
+| --- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| S19 | [DeepSeek models and pricing](https://api-docs.deepseek.com/quick_start/pricing/) | deepseek-flash maps to DeepSeek-V4.1-Flash-1017; peak/off-peak cache-miss/cache-hit/output USD prices and timing. |
+| S20 | [DeepSeek context caching](https://api-docs.deepseek.com/guides/kv_cache/)        | Persisted matching prefix units, best-effort hits, expiration and cache-hit/miss usage fields.                    |
+| S21 | [DeepSeek thinking mode](https://api-docs.deepseek.com/guides/thinking_mode/)     | Thinking is enabled by default at high effort; mode/settings and usage must be controlled.                        |
+| S22 | [DeepSeek token usage](https://api-docs.deepseek.com/quick_start/token_usage/)    | Token estimates differ from actual returned usage; image tokens require separate accounting.                      |

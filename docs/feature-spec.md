@@ -438,15 +438,17 @@ Measure first-pass coverage by learning outcome and format; delayed independent 
 - Cloudflare Pages frontend; backend/LLM design follows this feature specification.
 - Maths/proofs, applied answers, MIPS, circuits, and MCQs are core; essays remain a later format unless another module needs them.
 - Source citations, marking uncertainty, versioned attempts, and preserving original responses are core.
+- Typed answers first, with provisional AI marks and manual review. The owner can supply lecture notes, tutorials and solutions for both modules, plus visible CS2100 Canvas quiz questions; files and solution provenance still need review.
+- Evaluation target: $20/month for DeepSeek through an owner-supplied custom API provider, a library below 100 MB with extracted text and retained diagrams, and about 1,000 responses/day. The model is DeepSeek-V4.1-Flash-1017 at owner-reported official API rates, billed in microdollars (USD); the daily volume means submitted answers. Custom-provider billing passthrough and actual token/storage volumes remain untested. This specifies an AI budget, not a total hosting budget or accepted provider architecture.
 
 ### 12.2 Still to confirm from representative material
 
 - Academic year/semester, actual exam durations/marks/navigation, allowed references/calculators, and any official partial-credit rules.
 - ST2132 notation/parametrisations and sample marking schemes; CS2100 MIPS subset/conventions and expected circuit answer representation.
-- Whether the owner primarily types mathematics, writes on a tablet, or uploads paper photos; this affects the answer editor and interpretation workload.
+- Actual supplied file formats and representative multipart proof/MIPS/circuit coverage; handwritten input is secondary to the confirmed typed-first workflow.
 - Available official solutions/rubrics and which sources take precedence when they disagree.
-- How much provisional AI marking/manual self-marking is acceptable initially, particularly for proofs and circuits.
-- A monthly operating budget, approximate library size, expected daily answer count/length, and later invited-user target.
+- The human review process and per-format quality gates for the confirmed provisional AI/manual-review workflow, particularly proofs and circuits.
+- Custom-provider model identifier, peak/cache rate passthrough, limits/retention, actual tokens per submitted answer including thinking, original/derived sizes, infrastructure budget and later invited-user target. DeepSeek model/version and official-price parity are owner-confirmed.
 - Canvas institution/API access and the quiz/export formats actually available to the student's account.
 
 ### 12.3 Backend/LLM investigation brief
