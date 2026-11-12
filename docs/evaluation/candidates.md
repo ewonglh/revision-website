@@ -13,14 +13,9 @@ Status: desk study, 12 November 2026; no empirical provider comparison or select
 
 No route has measured equation error, structure fidelity or minutes/page here. Direct document input does not replace a canonical extracted representation with source anchors. Keep raw original, derived blocks/assets, review patches and a new immutable published revision; do not replace the original with Markdown. Human acceptance of a diagram is distinct from functional-equivalence checking. Unsupported or low-confidence pages can remain readable while excluded from automatic marking.
 
-Measured on the received pack ([details](README.md#local-extraction-evidence-from-the-received-pack)), raw text-layer extraction is not a safe marking input for either module:
+Measured on the received pack ([details](README.md#local-extraction-evidence-from-the-received-pack)), the deterministic text layer mangles this material in four ways: TeX big operators decode to ASCII letters, symbol glyphs land in the Private Use Area, subscripts flatten, and diagram topology is absent. On the CS2100 pages the same extractor turns merged-header datapath tables into `None`-headed cells and splits `[$1]–[$3]` across cells.
 
-- TeX-generated pages extract with every glyph present but 50 big-operator glyphs decoded as the ASCII letters `P`/`X`, plus flattened subscripts. The text reads fluently and is wrong, so no automated confidence signal fires.
-- Circuit pages hold the topology only as vector paths. Truth tables extract; the gates and wires they accompany do not.
-- Pages whose diagram or table is a raster image yield only the slide title.
-- Handwritten annotations carry no text, so any worked solution written on the slides is invisible to a text pipeline.
-
-That splits the requirement rather than selecting a product: equation-bearing pages need symbol canonicalisation and both halves of script recovery, while diagram-bearing pages need a rendered crop and a human-confirmed interpretation. Neither is supplied by whichever extraction route is cheapest per page, so repair effort — not page price — is the figure that decides this in #27.
+These are extraction-route properties, not properties of the pages. The information is present in the rendered page and is readable there. So the comparison in #27 is not "which extractor loses least" but **where interpretation happens**: a vision pass that reads the page into anchored structure, versus a text pass plus manual repair. The measured evidence favours the vision route as primary for these formats, with the text layer retained as a cheap searchable index rather than as the record.
 
 A page-image route on the owner's chosen provider is now documented: `deepseek-flash` accepts images [S23], so the same model that would mark answers can also read a rendered page. This is the cheapest way to cover the gap above, but note the specific limits before relying on it:
 
