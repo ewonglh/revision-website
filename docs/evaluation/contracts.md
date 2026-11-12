@@ -20,6 +20,8 @@ Status: research proposal for #30, not implemented interfaces or accepted backen
 
 Question, solution and learner permissions are independent. Marking-only access to a reserved solution never authorises returning it to a learner. Material revocation must invalidate derived blocks, search entries, source previews and cached results. Old attempts preserve permissible provenance; evidence can become unavailable, visibly, rather than bypassing deletion. Retention/deletion of shared and historical content is unresolved before invited use.
 
+Extraction must record a loss assessment, not just success. The [pack probe](README.md#local-extraction-evidence-from-the-received-pack) found silent failures that a parse-status flag cannot express: symbol glyphs mapped to Private Use Area or to ordinary letters, flattening of subscripts, and diagram topology absent from the text layer. An evidence block therefore needs an authenticity/repair state separate from its existence: an extracted span is `unreviewed`, `repaired`, or `verified-against-page`, and only the latter two may feed automatic marking. Detecting a loss requires checking the decoded characters themselves (replacement characters, PUA ranges, unexpected ASCII where a symbol is expected) rather than trusting a non-empty result. Any page whose question depends on a diagram needs a rendered asset reference regardless of how clean its text looks.
+
 ## Initial API surface
 
 Every mutation authenticates, authorises current ownership/grants, validates bounded input and returns a request ID. Unauthorised object access gives a non-disclosing not-found response. Public client responses exclude provider prompts, private object keys and hidden solutions.

@@ -13,6 +13,15 @@ Status: desk study, 12 November 2026; no empirical provider comparison or select
 
 No route has measured equation error, structure fidelity or minutes/page here. Direct document input does not replace a canonical extracted representation with source anchors. Keep raw original, derived blocks/assets, review patches and a new immutable published revision; do not replace the original with Markdown. Human acceptance of a diagram is distinct from functional-equivalence checking. Unsupported or low-confidence pages can remain readable while excluded from automatic marking.
 
+Measured on the received pack ([details](README.md#local-extraction-evidence-from-the-received-pack)), raw text-layer extraction is not a safe marking input for either module:
+
+- TeX-generated pages extract with every glyph present but 50 big-operator glyphs decoded as the ASCII letters `P`/`X`, plus flattened subscripts. The text reads fluently and is wrong, so no automated confidence signal fires.
+- Circuit pages hold the topology only as vector paths. Truth tables extract; the gates and wires they accompany do not.
+- Pages whose diagram or table is a raster image yield only the slide title.
+- Handwritten annotations carry no text, so any worked solution written on the slides is invisible to a text pipeline.
+
+That splits the requirement rather than selecting a product: equation-bearing pages need symbol canonicalisation and both halves of script recovery, while diagram-bearing pages need a rendered crop and a human-confirmed interpretation. Neither is supplied by whichever extraction route is cheapest per page, so repair effort — not page price — is the figure that decides this in #27.
+
 ## Backend alternatives
 
 | Candidate                                            | Identity, originals and metadata                                                                                  | Durable work / retrieval / deadlines                                                                                                                                                                                            | Tradeoffs and unresolved checks                                                                                                                                                                                                                                                                   |
