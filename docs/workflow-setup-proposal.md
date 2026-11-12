@@ -1,6 +1,6 @@
 # Agent workflow setup proposal
 
-Review draft for the explicitly invoked setup-matt-pocock-skills skill. GitHub, the default five triage labels, and AGENTS.md have been selected. This proposal is not the active agent configuration until applied.
+Approved and applied on 12 November 2026 using the explicitly invoked setup-matt-pocock-skills skill. This document preserves the reviewed proposal. Active configuration lives in [AGENTS.md](../AGENTS.md) and [docs/agents](agents/issue-tracker.md); edit those files directly for future changes.
 
 ## AGENTS.md — proposed initial contents
 

@@ -22,6 +22,7 @@ React, TypeScript and Vite; plain CSS and system fonts. Static build: `npm run b
 
 - [Roadmap and stage issues](https://github.com/ewonglh/revision-website/issues/1)
 - [Workflow](docs/workflow.md) and [contribution guide](CONTRIBUTING.md)
+- [Agent instructions](AGENTS.md) and [skills configuration](docs/agents/issue-tracker.md)
 - [Product specification](docs/feature-spec.md) and [domain context](CONTEXT.md)
 - [Design direction](docs/design.md)
 - [Reference-site audit](docs/reference-site-audit.md) and [source/licence search](docs/source-status.md)
