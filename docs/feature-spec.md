@@ -439,7 +439,7 @@ Measure first-pass coverage by learning outcome and format; delayed independent 
 - Maths/proofs, applied answers, MIPS, circuits, and MCQs are core; essays remain a later format unless another module needs them.
 - Source citations, marking uncertainty, versioned attempts, and preserving original responses are core.
 - Typed answers first, with provisional AI marks and manual review. The owner can supply lecture notes, tutorials and solutions for both modules, plus visible CS2100 Canvas quiz questions; files and solution provenance still need review.
-- Evaluation target: $20/month for DeepSeek through an owner-supplied custom API provider, a library below 100 MB with extracted text and retained diagrams, and about 1,000 responses/day. The model is DeepSeek-V4.1-Flash-1017 at owner-reported official API rates, billed in microdollars (USD); the daily volume means submitted answers. Custom-provider billing passthrough and actual token/storage volumes remain untested. This specifies an AI budget, not a total hosting budget or accepted provider architecture.
+- Evaluation target: **$20/month for grading calls** through an owner-supplied custom API provider, plus a **separate $100/month for ingesting source files and syllabus content**, a library below 100 MB with extracted text and retained diagrams, and about 1,000 responses/day. The model is DeepSeek-V4.1-Flash-1017 at owner-reported official API rates, billed in microdollars (USD); the daily volume means submitted answers. Custom-provider billing passthrough and actual token/storage volumes remain untested. These specify AI budgets, not a total hosting budget or accepted provider architecture.
 
 ### 12.2 Still to confirm from representative material
 

@@ -4,9 +4,31 @@ Checked against fetched official documentation on 12 November 2026. Run `node ev
 
 ## Owner target and custom-provider feasibility
 
-The owner confirmed **DeepSeek-V4.1-Flash-1017** through a custom provider at official API rates, billing in microdollars, a $20/month AI budget, **1,000 submitted answers/day**, and a library estimate below 100 MB with text extraction and retained diagrams. Typed answers come first, with provisional AI marking and manual review. Use USD and 1 microdollar = USD 0.000001, so the monthly cap is 20 million microdollars. No total infrastructure budget was specified.
+The owner confirmed **DeepSeek-V4.1-Flash-1017** through a custom provider at official API rates, billing in microdollars, **1,000 submitted answers/day**, and a library estimate below 100 MB with text extraction and retained diagrams. Typed answers come first, with provisional AI marking and manual review. Use USD and 1 microdollar = USD 0.000001.
 
-At 1,000 submitted answers/day over 30 days, the target is **30,000 answers/month**, allowing **$0.0006667 (666.67 microdollars) per answer** averaged across the month. With a hypothetical 10% repeat allowance and one primary call per answer, each primary call must average at most $0.0006061 before any separate escalation, ingestion or embedding spend. Allocate those other AI costs first if they share the $20 cap. Deterministic keyed scoring need not call an LLM for every response; explanations may still require review. Multiple part-level calls per submission must count towards this same budget.
+### Two separate budgets, not one shared cap
+
+Owner clarification, 12 November 2026: the **$20/month figure applies to grading calls only**, and the owner is willing to spend up to **$100/month on ingestion** of source files and syllabus content. These are distinct budgets and must not be summed into a single cap:
+
+| Budget    | Monthly | Scope                                                               | Binding constraint                                    |
+| --------- | ------- | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| Grading   | $20     | Marking submitted answers; the 30,000-answer/month arithmetic below | Per-answer cost, because volume is fixed at 1,000/day |
+| Ingestion | $100    | Reading source documents into anchored structured records           | Effectively unconstrained; see the sizing below       |
+
+Sizing the ingestion budget makes the asymmetry clear. A vision-read page bills a 1,024-token image plus a structured-record output. At the official peak cache-miss input rate [S19]:
+
+| Record size per page         | Peak cost/page | Pages affordable for $100 | Full passes over a 1,024-page library per month |
+| ---------------------------- | -------------- | ------------------------- | ----------------------------------------------- |
+| Lean, ~300 output tokens     | $0.00067       | ~149,900                  | 146                                             |
+| Normal, ~1,000 output tokens | $0.00151       | ~66,300                   | 64                                              |
+| Rich, ~2,000 output tokens   | $0.00271       | ~36,900                   | 36                                              |
+| Heavy with thinking, ~5,000  | $0.00631       | ~15,900                   | 15                                              |
+
+So ingesting a 100 MB library end-to-end costs on the order of **$0.68–$6.46**, and the $100 ceiling allows the entire library to be re-read tens of times a month. The ingestion budget is therefore not the constraint to optimise; re-rendering on every source revision, re-running after a prompt or schema change, and extracting the same page through two routes for cross-checking are all affordable. Output tokens, not images, dominate: a heavier record costs ten times a lean one while the image is a fixed 1,024 tokens.
+
+Two consequences. First, the mixed-route policy is affordable without argument — a second route for cross-checking roughly doubles a per-page figure that is already under a cent. Second, the grading budget is the binding one, so marking-context reduction (cached prefixes, narrower evidence) is where cost work belongs, not ingestion. Because ingestion is funded separately, the grading arithmetic below no longer has to reserve room for OCR, embeddings or re-extraction.
+
+At 1,000 submitted answers/day over 30 days, the grading target is **30,000 answers/month**, allowing **$0.0006667 (666.67 microdollars) per answer** averaged across the month. With a hypothetical 10% repeat allowance and one primary call per answer, each primary call must average at most $0.0006061 before any separate escalation. Deterministic keyed scoring need not call an LLM for every response; explanations may still require review. Multiple part-level calls per submission must count towards this same budget.
 
 For the earlier illustrative 8,000-input/2,000-output token envelope, 30,000 calls plus 10% repeats consume 264 million input and 66 million output tokens. With uncached rates per million tokens in the same currency as the budget, affordability requires `264 × inputRate + 66 × outputRate <= 20`. This is a constraint, not a price estimate or a claim that this context length is necessary. A part-level response might need much less context; multipart proof assessment may need more. Measure tokens by format and preserve rubric/evidence coverage when reducing context.
 
@@ -27,9 +49,9 @@ In microdollars **per token**, these have the same numeric values: off-peak unca
 
 These are marking-only scenario costs. Output tokens must cover billed thinking and final output, not just visible feedback. Thinking mode is enabled by default at high effort in the direct API [S21]; pin the actual mode/output limit and measure usage rather than letting the default expand cost. Truncation must lead to review, not a fabricated completed mark. The compact context/500-token output and 90% hit fraction have **not** been validated for any course format.
 
-The $19.80 compact uncached off-peak scenario leaves only $0.20 for any other work within the cap. Even a short reply may need more internal reasoning or evidence. Cache hits require reusable persisted prefixes and are best effort [S20]; distinct question/rubric/source revisions and changing permissions reduce reuse. Use returned cache-hit/miss usage and never reuse evidence across access scopes for savings. There is no evidence yet that 30,000 source-backed written marks fit $20 reliably. The calculator leaves observed custom-provider cost null; quality and measured consumption remain gates.
+The $19.80 compact uncached off-peak scenario leaves only $0.20 for any other _grading_ work within that budget. Even a short reply may need more internal reasoning or evidence. Cache hits require reusable persisted prefixes and are best effort [S20]; distinct question/rubric/source revisions and changing permissions reduce reuse. Use returned cache-hit/miss usage and never reuse evidence across access scopes for savings. There is no evidence yet that 30,000 source-backed written marks fit $20 reliably. The calculator leaves observed custom-provider cost null; quality and measured consumption remain gates.
 
-Before paid evaluation, confirm the custom-provider alias, billing/usage fields, time-band/cache passthrough, request limits and retention terms; receive the reviewed private pack and bound each run within the remaining $20 monthly AI budget. No API key or paid request has been used. Source size cannot establish token cost; actual usage is authoritative [S22].
+Before paid evaluation, confirm the custom-provider alias, billing/usage fields, time-band/cache passthrough, request limits and retention terms; receive the reviewed private pack and bound each run within the applicable monthly budget — $20 for grading calls, $100 for ingestion. No API key or paid request has been used. Source size cannot establish token cost; actual usage is authoritative [S22].
 
 The below-100-MB estimate does not determine page count, chunk count, model tokens or monthly response storage. Record original files, extracted text, retained diagrams and accumulated answer/result data separately. Keep immutable authorised originals for source anchors and repair; parsing text does not replace them. Earlier 2/20-GB storage scenarios below are sensitivity examples, not the owner's confirmed library size.
 

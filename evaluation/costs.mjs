@@ -8,10 +8,37 @@ const money = (value) => Number(value.toFixed(4));
 // Owner reports official-price parity; passthrough and usage remain untested.
 const ownerResponses = 1_000 * 30;
 const ownerBudget = 20;
+// Separate ingestion budget (owner clarification 2026-11-12): source-file and
+// syllabus ingestion is funded separately from grading calls and must not be
+// added to ownerBudget. Vision page cost = 1024-token image + record output.
+const ingestionBudget = 100;
+const visionImageTokens = 1_024;
+const ingestionRecordSizes = {
+  lean: 300,
+  normal: 1_000,
+  rich: 2_000,
+  heavy: 5_000,
+};
+const ingestionPageCost = (outTokens, band) =>
+  (visionImageTokens * deepseekRates[band].cacheMiss +
+    outTokens * deepseekRates[band].output) /
+  1_000_000;
 const deepseekRates = {
   offPeak: { cacheMiss: 0.15, cacheHit: 0.003, output: 0.6 },
   peak: { cacheMiss: 0.3, cacheHit: 0.006, output: 1.2 },
 };
+const ingestionScenarios = Object.entries(ingestionRecordSizes).map(
+  ([record, outTokens]) => {
+    const perPagePeak = ingestionPageCost(outTokens, 'peak');
+    return {
+      record,
+      outputTokensPerPage: outTokens,
+      peakCostPerPage: Number(perPagePeak.toFixed(7)),
+      pagesAffordableForBudget: Math.floor(ingestionBudget / perPagePeak),
+      costFor1024Pages: Number((perPagePeak * 1_024).toFixed(4)),
+    };
+  },
+);
 const deepseekScenarios = [
   {
     name: 'earlier-long-context',
@@ -54,6 +81,7 @@ console.log(
       officialModelAlias:
         'deepseek-flash; confirm custom-provider alias before calls',
       budget: ownerBudget,
+      budgetScope: 'grading calls only',
       currency: 'USD; billed in microdollars (1 USD = 1000000 microdollars)',
       budgetMicrodollars: ownerBudget * 1_000_000,
       responsesPerMonth: ownerResponses,
@@ -69,7 +97,16 @@ console.log(
         affordabilityConstraint:
           '264 * inputRatePerMTok + 66 * outputRatePerMTok <= 20',
         caveat:
-          'Uncached scenario; reserve separate escalation, ingestion and embedding spend first if they share this cap.',
+          'Grading-only cap. Ingestion is funded from a separate budget, so it no longer has to be reserved out of this figure.',
+      },
+      ingestionBudget: {
+        budget: ingestionBudget,
+        budgetScope:
+          'source-file and syllabus ingestion, separate from grading',
+        visionImageTokensPerPage: visionImageTokens,
+        scenarios: ingestionScenarios,
+        caveat:
+          'Peak cache-miss input rate; record-size output tokens are assumed, not measured.',
       },
       officialRatesUSDPerMTok: deepseekRates,
       scenarios: deepseekScenarios,
@@ -77,6 +114,7 @@ console.log(
       missing: [
         'measured tokens including thinking and actual cache-hit fraction',
         'custom-provider alias, peak/cache billing passthrough, limits and retention',
+        'measured structured-record output tokens per page',
         'reviewed marking quality and other AI budget consumption',
       ],
     },
