@@ -31,3 +31,5 @@ Personal, exam-aligned revision for ST2132 and CS2100. Begin with imported real 
 - The public repository contains original code and safe fixtures, not private course materials.
 
 See the feature spec for product requirements and `docs/adr/` for accepted implementation decisions.
+
+The [issue #2 evaluation dossier](docs/evaluation/README.md) records synthetic baseline evidence and proposed backend/assessment contracts. ADR 0002 is proposed; backend, provider and quality-threshold decisions remain open pending representative materials and review.
