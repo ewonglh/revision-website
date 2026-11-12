@@ -31,9 +31,12 @@ Capability documentation establishes what is advertised, not measured equation/w
 
 Fetched and read after the owner specified DeepSeek-V4.1-Flash-1017 and official-price parity for a custom provider. These pages establish direct-API terms, not observed reseller behaviour. No inference calls were made.
 
-| ID  | Official page                                                                     | Claims used / limits                                                                                              |
-| --- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| S19 | [DeepSeek models and pricing](https://api-docs.deepseek.com/quick_start/pricing/) | deepseek-flash maps to DeepSeek-V4.1-Flash-1017; peak/off-peak cache-miss/cache-hit/output USD prices and timing. |
-| S20 | [DeepSeek context caching](https://api-docs.deepseek.com/guides/kv_cache/)        | Persisted matching prefix units, best-effort hits, expiration and cache-hit/miss usage fields.                    |
-| S21 | [DeepSeek thinking mode](https://api-docs.deepseek.com/guides/thinking_mode/)     | Thinking is enabled by default at high effort; mode/settings and usage must be controlled.                        |
-| S22 | [DeepSeek token usage](https://api-docs.deepseek.com/quick_start/token_usage/)    | Token estimates differ from actual returned usage; image tokens require separate accounting.                      |
+| ID  | Official page                                                                     | Claims used / limits                                                                                                               |
+| --- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| S19 | [DeepSeek models and pricing](https://api-docs.deepseek.com/quick_start/pricing/) | deepseek-flash maps to DeepSeek-V4.1-Flash-1017; peak/off-peak cache-miss/cache-hit/output USD prices and timing.                  |
+| S20 | [DeepSeek context caching](https://api-docs.deepseek.com/guides/kv_cache/)        | Persisted matching prefix units, best-effort hits, expiration and cache-hit/miss usage fields.                                     |
+| S21 | [DeepSeek thinking mode](https://api-docs.deepseek.com/guides/thinking_mode/)     | Thinking is enabled by default at high effort; mode/settings and usage must be controlled.                                         |
+| S22 | [DeepSeek token usage](https://api-docs.deepseek.com/quick_start/token_usage/)    | Token estimates differ from actual returned usage; image tokens require separate accounting.                                       |
+| S23 | [DeepSeek vision guide](https://api-docs.deepseek.com/guides/vision)              | `deepseek-flash` accepts images; JPEG/PNG/GIF/WebP only, no PDF; ~1300x1300 resize with 1024 tokens/image cap; user messages only. |
+
+Vision capability is advertised on the pricing table [S19] for `deepseek-flash` and excluded for `deepseek-v4-pro`; the retired `deepseek-v4-flash-vision-exp` alias now resolves to V4.1-Flash-1017. Images are billed as ordinary input tokens, so the 1024-token cap bounds per-page cost. **PDF is not an accepted input**, so any page-image route must render pages to PNG itself. Documentation establishes availability, not recognition accuracy on equations or circuit diagrams; that remains unmeasured.

@@ -48,6 +48,10 @@ Received 12 November 2026 and processed locally with PyMuPDF 2.0 (MuPDF 1.28.5).
 
 The lecture decks are the risk case. Rendering the whole pack at 200 dpi took 2.7 s and produced 7.0 MB of PNG in total, so a page-image route is cheap for this size but scales with page count rather than with text.
 
+A second intake on the same day added the CS2100 task material that was missing from the first: `tut07qns.pdf` (4 pages) and `tut07_selected_ans.pdf` (6 pages), Tutorial #7 on combinational circuits, generated from Word. These are the first pages in the pack that carry a real asked-for-answer circuit problem rather than lecture exposition, and the answers include two alternative solutions for one part. Their text layer behaves differently from the TeX files: prose extracts correctly and there are no big-operator or PUA failures of the kind above (21 PUA characters total, no replacement characters). The failure is structural instead. On the answer page the component and pin labels all extract (`A B C D 0 0 A B C 4-bit //adder X3 X2 X1 X0 Cin S3 ...`) but the connections between them do not, so the recovered text describes a parts list rather than a circuit. Truth-table pages extract as long unaligned digit runs with no row/column structure.
+
+These two files still do not make the pack a grading benchmark: there are no rubric-labelled partial-credit or alternative-answer labels, MIPS is still absent, and the "selected answers" provenance (which questions were omitted, and why) has not been confirmed.
+
 ### What the text layer loses silently
 
 Four distinct failures, each verified by reading the rendered page against the extracted text:
@@ -75,6 +79,8 @@ Superscripts are partly recoverable: XHTML output does emit `<sup>`, so `σ²` s
 4. **Diagram questions need a rendered crop regardless of route.** A truth table can be checked from text; the circuit that the question actually asks about cannot.
 
 Not measured: human repair time per page, a second extraction route for comparison (no OCR engine or Docling is installed locally, so the compare-with-managed-route half of #27 is unrun), true OCR on the raster pages, and any marking quality. The `T6_sol`/`T7_sol` files are assumed to be official teaching-team solutions; the owner has not yet confirmed their provenance for grading use.
+
+A page-image route is now feasible on the already-chosen provider rather than a new one: `deepseek-flash` accepts images [S23]. PDF is not an accepted format, so pages must be rendered first, and the 1024-token-per-image cap downscales A4 pages to about 1093x1545. Spot checks of the CS2100 circuit and answer pages at exactly that size remained legible, but legibility is not measured recognition accuracy and no vision call has been made. See [candidate comparison](candidates.md) for the caveat about one model performing extraction and marking.
 
 ## Bounded delivery and missing inputs
 

@@ -22,6 +22,14 @@ Measured on the received pack ([details](README.md#local-extraction-evidence-fro
 
 That splits the requirement rather than selecting a product: equation-bearing pages need symbol canonicalisation and both halves of script recovery, while diagram-bearing pages need a rendered crop and a human-confirmed interpretation. Neither is supplied by whichever extraction route is cheapest per page, so repair effort — not page price — is the figure that decides this in #27.
 
+A page-image route on the owner's chosen provider is now documented: `deepseek-flash` accepts images [S23], so the same model that would mark answers can also read a rendered page. This is the cheapest way to cover the gap above, but note the specific limits before relying on it:
+
+- **PDF is not accepted.** Pages must be rendered to PNG/JPEG first, which is a local step and already measured here (2.7 s and 7.0 MB for 55 pages at 200 dpi).
+- **1024 tokens per image maximum.** Pages are downscaled to roughly a 1300x1300 pixel budget. A dense A4 page lands near 1093x1545 and remained legible in a spot check of the CS2100 circuit pages and answer keys; dense multipart notation at small point size was not exhausted.
+- **No accuracy claim.** Legibility to a human eye is not recognition accuracy. Vision output still needs the same repair record and source anchor, and an unreviewed transcription remains unmarkable.
+
+The correlation worth avoiding: using the same model for OCR, retrieval summary and marking means a misread symbol propagates through every stage without an independent check. A separate extraction route, or human confirmation of diagram interpretation, keeps the error detectable.
+
 ## Backend alternatives
 
 | Candidate                                            | Identity, originals and metadata                                                                                  | Durable work / retrieval / deadlines                                                                                                                                                                                            | Tradeoffs and unresolved checks                                                                                                                                                                                                                                                                   |
