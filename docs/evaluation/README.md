@@ -21,6 +21,29 @@ node evaluation/costs.mjs
 
 The baseline ranks distinct overlapping alphanumeric tokens, drops zero-overlap results and returns at most three after an explicit fixture scope filter. It has no embeddings, reranker, model calls or application integration. The script prints a fixture SHA-256 for each run; the [recorded result](../../evaluation/baseline-results.json) identifies the exact pack used.
 
+## Deterministic circuit-equivalence checker
+
+[evaluation/circuit.ts](../../evaluation/circuit.ts) implements the owner-confirmed full-credit rule as running code: a differently wired but functionally equivalent circuit earns credit because a check said so, not because a model asserted it. It is an evaluation artifact and is never imported by the application; `tsconfig.evaluation.json` typechecks it separately so it cannot leak into `dist/`.
+
+`compareCircuits(a, b)` takes two circuits as plain data — declared inputs, gates with ids, and one source per output, with `'0'`/`'1'` constants allowed — and evaluates every input combination up to 2^16. It returns either a proven verdict or a refusal with a reason:
+
+| Result                                | Meaning                                                |
+| ------------------------------------- | ------------------------------------------------------ |
+| `exhaustive: true, equivalent: true`  | every row matched                                      |
+| `exhaustive: true, equivalent: false` | first differing assignment plus both circuits' outputs |
+| `exhaustive: false, code, reason`     | no claim made; the criterion needs review              |
+
+The refusal path carries no `equivalent` field at all, so a caller cannot read a verdict out of a check that did not run. Refusals cover: more than 16 inputs, combinational cycles, undeclared or declared-but-unused inputs, unsupported gate types (`buf`, `tri`), wrong arity, duplicate or colliding signal names, outputs without a resolvable source, gates that reach no output, and malformed records.
+
+Two details matter for #29:
+
+- **`inputsCompared` counts rows actually evaluated**, not the size of the space. A difference stops at the first counterexample, so a smaller number records the rows that really ran. Reporting 2^n here would claim work that did not happen.
+- **`deviceCount` is reported separately and is not implied by `equivalent`.** It returns `total` (recognised gates only), `byType`, and `unsupportedIds`. A rubric that requires fewest devices must apply that constraint itself; functional equivalence alone is not full credit.
+
+Evidence limits: this proves combinational equivalence over an enumerated input space. It does not read drawings or PDFs — an interpretation step must produce the record first, and an interpretation remains `unreviewed` until a human confirms it. It says nothing about sequential behaviour, timing, gate delay or device topology beyond the gate list. Its output feeds a human-reviewed rubric decision in #29; no marking-quality claim follows from it.
+
+Run its tests with `npx vitest run evaluation/circuit.test.ts` (part of `npm run check`).
+
 | Executed check                | Result                                    | Interpretation                                                                                      |
 | ----------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | Scoped lexical retrieval      | 9/10 gold passages found at k=3           | Misses `paraphrase`; tiny authored corpus, no generalisation claim                                  |
@@ -30,6 +53,7 @@ The baseline ranks distinct overlapping alphanumeric tokens, drops zero-overlap 
 | Exact-set choice scoring      | 5 cases pass                              | Includes order independence, incomplete/superset and blank choices; reasoning remains separate      |
 | Two confirmed XOR expressions | Both match all 4 input rows               | Only these two combinational expressions; no drawing recognition, timing or arbitrary-circuit claim |
 | Wrong OR expression           | Rejected by truth-table counterexample    | A meaningful negative control                                                                       |
+| Circuit equivalence checker   | 38 tests pass, incl. differential check   | Combinational only, up to 16 inputs; no drawing parsing, timing or marking-quality claim            |
 
 Some retrieved matches are irrelevant; a nonempty result must not be treated as sufficient evidence. No PDF/OCR extraction, repair timing, dense retrieval, AI grading, proof verification, MIPS assembly/execution, image interpretation, production permissions or deadline/recovery test ran. These are explicit follow-up gates, not silently passing results.
 
