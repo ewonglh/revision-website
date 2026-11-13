@@ -37,6 +37,16 @@ Human gates attach to the affected implementation issue and revision; they are n
 4. Add the module-specific edge cases, then review scheduling and timed papers.
 5. Exercise private personal use before connectors, generation or sharing.
 
+## Current refinement
+
+Every open stage has been decomposed into named slices with blockers, gates and
+acceptance shape in [refinement/backlog.md](refinement/backlog.md). Only slices that
+can actually start were promoted to issues; the rest stay in that document so the
+unblocked frontier stays visible. Judgement calls made during refinement, and what
+changes if any of them is wrong, are recorded in
+[refinement/assumptions.md](refinement/assumptions.md) — amend that file rather than
+re-deriving the decisions.
+
 ## Skills and portability
 
 The invoked setup-matt-pocock-skills skill defines the configuration files read by triage, to-spec and to-tickets. Agents should use their installed skills with the repo's configuration. Do not copy machine-specific absolute paths or install unreviewed skill bundles into the public project.

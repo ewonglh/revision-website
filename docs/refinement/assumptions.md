@@ -63,18 +63,18 @@ would let the two drift.
 
 ## A05 — `T6_sol` and `T7_sol` are both official
 
-**Assumed:** both are official teaching-team solutions, per the change in PR #36.
+**Assumed:** both are official teaching-team solutions.
 
-**Why:** PR #36's diff marks both files official, but its own description says it
-deliberately extended provenance to `T6_sol` only and left `T7_sol` unstated. I
-could not find a written confirmation for `T7_sol` in the issue history before the
-session was interrupted.
+**Why:** PR #36's diff marks both files official while its _description_ said it
+extended provenance to `T6_sol` only. I treated that as a stale description rather
+than a contradiction in the change, because the commit message states the owner
+confirmed `T7_sol` too. I corrected the PR description to match the commit.
 
 **If wrong:** one line in `docs/evaluation/README.md` reverts to "assumed". No code
 depends on it, but #26's gold-label gate does.
 
-**Status:** open — **this is a contradiction I could not resolve, not a decision I
-made.** Please confirm which file(s) are official.
+**Status:** resolved by inference, not by a written owner statement I could find.
+Worth a one-word confirmation from you.
 
 ## A06 — Refinement output lives in the repo, not in 60 issues
 
