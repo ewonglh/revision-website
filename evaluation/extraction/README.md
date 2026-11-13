@@ -20,6 +20,25 @@ vision route scored **5/5** on a large-type diagram page.
 So no single route is safe, and a fluent reading is not evidence. These tools exist
 to make each route's output _checkable_ and to record which route produced what.
 
+## Vision harness (#32, draft)
+
+Reads rendered page images through the owner's provider and scores the readings
+against deterministic checks. It sends nothing without configuration and never
+falls back to a guessed URL.
+
+| Variable                 | Required | Meaning                                                               |
+| ------------------------ | -------- | --------------------------------------------------------------------- |
+| `EXTRACTION_BASE_URL`    | yes      | Provider root, e.g. `https://provider.example/v1`                     |
+| `EXTRACTION_MODEL`       | yes      | The model ID that provider accepts — not necessarily `deepseek-flash` |
+| `EXTRACTION_API_KEY`     | yes      | Provider key. Never committed, never placed in a request body         |
+| `EXTRACTION_AUTH_HEADER` | no       | Header name; defaults to `authorization`                              |
+| `EXTRACTION_AUTH_SCHEME` | no       | Prefix; defaults to `Bearer`. Set empty for a bare key                |
+| `EXTRACTION_PATH`        | no       | Defaults to `/chat/completions` (OpenAI-compatible)                   |
+| `EXTRACTION_TIMEOUT_MS`  | no       | Defaults to 120000                                                    |
+
+No provider call has been billed. Everything below was verified against a local
+stand-in provider, so provider behaviour on the real endpoint is unmeasured.
+
 ## Deterministic extractor (#34)
 
 ### Usage
