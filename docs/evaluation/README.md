@@ -39,12 +39,12 @@ Received 12 November 2026 and processed locally with PyMuPDF 2.0 (MuPDF 1.28.5).
 
 ### Pack shape
 
-| File               | Kind                    | Pages |  Text chars | Notes                                                              |
-| ------------------ | ----------------------- | ----: | ----------: | ------------------------------------------------------------------ |
-| `T6`, `T7`         | ST2132 tutorial sheets  |     1 | 1,033-1,327 | pdfTeX output; dense inline notation                               |
-| `T6_sol`, `T7_sol` | ST2132 solutions        |     1 | 1,296-2,219 | same generator; heavy superscript/subscript use                    |
-| `L12`, `L13`       | ST2132 annotated slides | 14/11 | 3,774/3,160 | 19 pages carry 690 handwritten **Ink** annotations, none with text |
-| `Lect14`           | CS2100 logic circuits   |    26 |       6,896 | slides; 8 content images on 5 pages, plus a repeated QR code       |
+| File               | Kind                    | Pages |  Text chars | Notes                                                                                    |
+| ------------------ | ----------------------- | ----: | ----------: | ---------------------------------------------------------------------------------------- |
+| `T6`, `T7`         | ST2132 tutorial sheets  |     1 | 1,033-1,327 | pdfTeX output; dense inline notation                                                     |
+| `T6_sol`, `T7_sol` | ST2132 solutions        |     1 | 1,296-2,219 | same generator; heavy superscript/subscript use; `T6_sol` official, `T7_sol` unconfirmed |
+| `L12`, `L13`       | ST2132 annotated slides | 14/11 | 3,774/3,160 | 19 pages carry 690 handwritten **Ink** annotations, none with text                       |
+| `Lect14`           | CS2100 logic circuits   |    26 |       6,896 | slides; 8 content images on 5 pages, plus a repeated QR code                             |
 
 The lecture decks are the risk case. Rendering the whole pack at 200 dpi took 2.7 s and produced 7.0 MB of PNG in total, so a page-image route is cheap for this size but scales with page count rather than with text.
 
@@ -103,7 +103,7 @@ The remaining plan follows from this:
 4. **Vision output must be checked by something that is not vision.** The 5/10 table result is the case in point: the reading looked fluent and was half wrong. Where a check exists (arithmetic, truth table, `find_tables` agreement), run it and record it as deterministic evidence; where none exists, the interpretation stays unreviewed.
 5. **One model doing extraction and marking is a correlation risk.** If the same model misreads a symbol while transcribing and then marks against its own transcription, the error is invisible at both stages. The mixed route helps only where the deterministic side sees the same block; for diagram interpretation, keep human review or an independent pass so the failure stays detectable.
 
-Not measured: human repair time per page, whether an external vision call behaves like this in-session reading, the TeX pages under vision, and any marking quality. The `T6_sol`/`T7_sol` files are assumed to be official teaching-team solutions; the owner has not confirmed their provenance for grading use, and `tut07_selected_ans.pdf` does not state which questions were omitted.
+Not measured: human repair time per page, whether an external vision call behaves like this in-session reading, the TeX pages under vision, and any marking quality. **`T6_sol` is owner-confirmed as the official teaching-team solution (13 November 2026).** The provenance of `T7_sol` has not been confirmed and is still assumed, `tut07_selected_ans.pdf` does not state which questions were omitted, and no rubric-labelled partial-credit or alternative-answer labels exist for any file. Official provenance makes a solution usable as a reference; it does not by itself supply reviewed per-criterion marks.
 
 A page-image route is feasible on the already-chosen provider rather than a new one: `deepseek-flash` accepts images [S23]. PDF is not an accepted format, so pages must be rendered first, and the 1024-token-per-image cap downscales A4 pages to about 1093×1545 — the size at which the measurements above were taken. See [candidate comparison](candidates.md) for the same caveat about one model performing extraction and marking.
 
