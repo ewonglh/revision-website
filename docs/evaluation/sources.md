@@ -1,0 +1,42 @@
+# Official evidence register
+
+All sources below were fetched and read on **12 November 2026** through public HTTPS requests, without browser automation, account access or model inference calls. Prices are dated observations, not guaranteed quotes or account availability. The [machine-readable ledger](../../evaluation/sources.json) records response hashes; full third-party pages and raw outputs are not committed. HTML responses can vary on re-fetch, so a changed hash alone does not establish a pricing change.
+
+| ID  | Official page                                                                                        | Claims used / limits                                                                                          |
+| --- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| S01 | [Workers pricing](https://developers.cloudflare.com/workers/platform/pricing/)                       | Paid account floor, request/CPU allowances and Pages Functions billing.                                       |
+| S02 | [D1 pricing](https://developers.cloudflare.com/d1/platform/pricing/)                                 | Rows read/written, indexes and storage billing.                                                               |
+| S03 | [R2 pricing](https://developers.cloudflare.com/r2/pricing/)                                          | Standard versus Infrequent Access, included usage, egress and rounding.                                       |
+| S04 | [Workflows pricing](https://developers.cloudflare.com/workflows/reference/pricing/)                  | CPU/requests plus storage and step billing; charging has started.                                             |
+| S05 | [Queues pricing](https://developers.cloudflare.com/queues/platform/pricing/)                         | Small-message write/read/delete operations, retries and retention.                                            |
+| S06 | [Queue delivery guarantees](https://developers.cloudflare.com/queues/reference/delivery-guarantees/) | At least once; consumers must tolerate redelivery.                                                            |
+| S07 | [Vectorize pricing](https://developers.cloudflare.com/vectorize/platform/pricing/)                   | Queried/stored dimensions, allowances and example calculation.                                                |
+| S08 | [D1 limits](https://developers.cloudflare.com/d1/platform/limits/)                                   | Per-database and execution limits; not unlimited SQL capacity.                                                |
+| S09 | [Supabase pricing](https://supabase.com/pricing)                                                     | Integrated products, single Micro project paid floor, compute credits, free pause and quotas.                 |
+| S10 | [Postgres row level security](https://supabase.com/docs/guides/database/postgres/row-level-security) | Policies and privileged/service-role bypass require deliberate use.                                           |
+| S11 | [Docling documentation](https://docling-project.github.io/docling/)                                  | Local execution, OCR, layout, tables, code/formula enrichment; capability claims, not this benchmark results. |
+| S12 | [Mistral basic OCR](https://docs.mistral.ai/studio/document-processing/basic_ocr)                    | Page Markdown, image bounding boxes, table formatting and optional structural blocks.                         |
+| S13 | [Mistral OCR 3 model card](https://docs.mistral.ai/models/ocr-3-25-12)                               | Pinned mistral-ocr-2512; ordinary $2/1000 pages and annotated $3/1000; OCR 4 is newer.                        |
+| S14 | [OpenAI API pricing](https://developers.openai.com/api/docs/pricing)                                 | Standard short-context model input/output and embedding rates; exclude batch/cache discounts.                 |
+| S15 | [OpenAI file inputs](https://developers.openai.com/api/docs/guides/file-inputs)                      | Compatible PDF input uses text and page images; no extraction/marking accuracy guarantee.                     |
+| S16 | [OpenAI data controls](https://developers.openai.com/api/docs/guides/your-data)                      | Endpoint-specific retention/deletion and data controls require review before private evaluation.              |
+| S17 | [Claude API pricing](https://platform.claude.com/docs/en/about-claude/pricing)                       | Base input/output prices, tokenisation and separate cache/batch schedules.                                    |
+| S18 | [Cloud Run pricing](https://cloud.google.com/run/pricing)                                            | Region/mode-specific CPU, memory, transfer and job billing; no unmeasured fixed compute quote.                |
+
+A speculative Cloudflare AI Search metadata-filtering URL returned HTTP 404 and was not used as evidence. No hosted RAG access-control capability is inferred from that failed fetch. Mistral's general marketing price page did not establish a usable OCR SKU price; the actual model card S13 supplied the pinned price instead. Current OCR documentation redirects to its Studio document-processing path (S12). OpenAI's earlier PDF guide redirects to file inputs (S15).
+
+Capability documentation establishes what is advertised, not measured equation/wire recognition or grading accuracy. Provider data retention, regional processing, consent, model availability and final account quotas must be reviewed against actual private inputs before #27–#29. No credentials were requested or used.
+
+## Owner-selected DeepSeek route
+
+Fetched and read after the owner specified DeepSeek-V4.1-Flash-1017 and official-price parity for a custom provider. These pages establish direct-API terms, not observed reseller behaviour. No inference calls were made.
+
+| ID  | Official page                                                                     | Claims used / limits                                                                                                               |
+| --- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| S19 | [DeepSeek models and pricing](https://api-docs.deepseek.com/quick_start/pricing/) | deepseek-flash maps to DeepSeek-V4.1-Flash-1017; peak/off-peak cache-miss/cache-hit/output USD prices and timing.                  |
+| S20 | [DeepSeek context caching](https://api-docs.deepseek.com/guides/kv_cache/)        | Persisted matching prefix units, best-effort hits, expiration and cache-hit/miss usage fields.                                     |
+| S21 | [DeepSeek thinking mode](https://api-docs.deepseek.com/guides/thinking_mode/)     | Thinking is enabled by default at high effort; mode/settings and usage must be controlled.                                         |
+| S22 | [DeepSeek token usage](https://api-docs.deepseek.com/quick_start/token_usage/)    | Token estimates differ from actual returned usage; image tokens require separate accounting.                                       |
+| S23 | [DeepSeek vision guide](https://api-docs.deepseek.com/guides/vision)              | `deepseek-flash` accepts images; JPEG/PNG/GIF/WebP only, no PDF; ~1300x1300 resize with 1024 tokens/image cap; user messages only. |
+
+Vision capability is advertised on the pricing table [S19] for `deepseek-flash` and excluded for `deepseek-v4-pro`; the retired `deepseek-v4-flash-vision-exp` alias now resolves to V4.1-Flash-1017. Images are billed as ordinary input tokens, so the 1024-token cap bounds per-page cost. **PDF is not an accepted input**, so any page-image route must render pages to PNG itself. Documentation establishes availability, not recognition accuracy on equations or circuit diagrams; that remains unmeasured.

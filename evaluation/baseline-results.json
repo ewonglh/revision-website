@@ -1,0 +1,102 @@
+{
+  "fixtureSha256": "6dfc96facdbabcfa83123b18f04afdb935bb9c7a6cb7c003ec75beac854b4554",
+  "questions": 8,
+  "draftAnswerCases": 18,
+  "retrieval": {
+    "queries": 12,
+    "recallAt3": 0.9,
+    "goldHitPrecisionAt3": 0.5625,
+    "noEvidenceAbstentions": "2/2",
+    "forbiddenScopedHits": 0,
+    "forbiddenUnscopedHits": 9,
+    "details": [
+      {
+        "id": "support",
+        "gold": ["support"],
+        "hits": ["support"],
+        "matched": 1
+      },
+      {
+        "id": "info",
+        "gold": ["information"],
+        "hits": ["information", "expectation", "support"],
+        "matched": 1
+      },
+      {
+        "id": "test",
+        "gold": ["test"],
+        "hits": ["test"],
+        "matched": 1
+      },
+      {
+        "id": "proof",
+        "gold": ["expectation"],
+        "hits": ["expectation"],
+        "matched": 1
+      },
+      {
+        "id": "address",
+        "gold": ["address"],
+        "hits": ["address"],
+        "matched": 1
+      },
+      {
+        "id": "mips",
+        "gold": ["mips"],
+        "hits": ["mips", "address"],
+        "matched": 1
+      },
+      {
+        "id": "circuit",
+        "gold": ["xor"],
+        "hits": ["xor"],
+        "matched": 1
+      },
+      {
+        "id": "key",
+        "gold": ["key-policy"],
+        "hits": ["key-policy"],
+        "matched": 1
+      },
+      {
+        "id": "paraphrase",
+        "gold": ["support"],
+        "hits": ["expectation", "test"],
+        "matched": 0
+      },
+      {
+        "id": "absent",
+        "gold": [],
+        "hits": [],
+        "matched": 0
+      },
+      {
+        "id": "misleading",
+        "gold": ["support"],
+        "hits": ["support", "expectation", "information"],
+        "matched": 1
+      },
+      {
+        "id": "attack",
+        "gold": [],
+        "hits": [],
+        "matched": 0
+      }
+    ]
+  },
+  "deterministic": {
+    "exactSetCases": 5,
+    "booleanRowsPerExpression": 4,
+    "equivalentExpressions": 2,
+    "orNegativeControlRejected": true
+  },
+  "notRun": [
+    "PDF/OCR extraction",
+    "dense retrieval",
+    "AI marking",
+    "proof verification",
+    "MIPS assembly/execution",
+    "drawing interpretation",
+    "production access/recovery tests"
+  ]
+}

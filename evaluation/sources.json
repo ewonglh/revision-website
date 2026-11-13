@@ -1,0 +1,178 @@
+[
+  {
+    "id": "S01",
+    "title": "Workers pricing",
+    "url": "https://developers.cloudflare.com/workers/platform/pricing/",
+    "checked": "2026-11-12",
+    "responseSha256": "3f0193ecea654e51fba551217237ce72cb2b9a2750719f0497a350fd3860a71e",
+    "supports": "Paid account floor, request/CPU allowances and Pages Functions billing."
+  },
+  {
+    "id": "S02",
+    "title": "D1 pricing",
+    "url": "https://developers.cloudflare.com/d1/platform/pricing/",
+    "checked": "2026-11-12",
+    "responseSha256": "0f28fffafecdf6b18663900722c5fae091694c1272c23374af391e6037edc77d",
+    "supports": "Rows read/written, indexes and storage billing."
+  },
+  {
+    "id": "S03",
+    "title": "R2 pricing",
+    "url": "https://developers.cloudflare.com/r2/pricing/",
+    "checked": "2026-11-12",
+    "responseSha256": "99c1d53a90f368ffeefc89c1f01d33582ab7bf61e3ea24f49eaf74e206f506ca",
+    "supports": "Standard versus Infrequent Access, included usage, egress and rounding."
+  },
+  {
+    "id": "S04",
+    "title": "Workflows pricing",
+    "url": "https://developers.cloudflare.com/workflows/reference/pricing/",
+    "checked": "2026-11-12",
+    "responseSha256": "79f6bbfacf507a252a800e30a1a9db0f91e0f2890314afd0599baf2fd8d8b6ed",
+    "supports": "CPU/requests plus storage and step billing; charging has started."
+  },
+  {
+    "id": "S05",
+    "title": "Queues pricing",
+    "url": "https://developers.cloudflare.com/queues/platform/pricing/",
+    "checked": "2026-11-12",
+    "responseSha256": "deac410da830922a11b026a9840b359c4086ee971d4f00beb42d9a04b1344e0f",
+    "supports": "Small-message write/read/delete operations, retries and retention."
+  },
+  {
+    "id": "S06",
+    "title": "Queue delivery guarantees",
+    "url": "https://developers.cloudflare.com/queues/reference/delivery-guarantees/",
+    "checked": "2026-11-12",
+    "responseSha256": "436231d56c4bee38c8ed1fb70dd1b546420362fba9743c3230497cbbfbda9a1c",
+    "supports": "At least once; consumers must tolerate redelivery."
+  },
+  {
+    "id": "S07",
+    "title": "Vectorize pricing",
+    "url": "https://developers.cloudflare.com/vectorize/platform/pricing/",
+    "checked": "2026-11-12",
+    "responseSha256": "aa2bbd6eadf4831c599287e1802938c3dd181d81d14ecb49fa103e8130472417",
+    "supports": "Queried/stored dimensions, allowances and example calculation."
+  },
+  {
+    "id": "S08",
+    "title": "D1 limits",
+    "url": "https://developers.cloudflare.com/d1/platform/limits/",
+    "checked": "2026-11-12",
+    "responseSha256": "3832d234fb9703fad062d0cc371fc0fbe8eded5d99a06e98fda63dc487285a71",
+    "supports": "Per-database and execution limits; not unlimited SQL capacity."
+  },
+  {
+    "id": "S09",
+    "title": "Supabase pricing",
+    "url": "https://supabase.com/pricing",
+    "checked": "2026-11-12",
+    "responseSha256": "1fe5ef1f0e24f26e3d6ac2bf82b29b1bd758e708755830e9d059dd5b3eb964b5",
+    "supports": "Integrated products, single Micro project paid floor, compute credits, free pause and quotas."
+  },
+  {
+    "id": "S10",
+    "title": "Postgres row level security",
+    "url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+    "checked": "2026-11-12",
+    "responseSha256": "f59323752afcad187709f128ca41602491d495f252a71676e7ef489f1bbeb460",
+    "supports": "Policies and privileged/service-role bypass require deliberate use."
+  },
+  {
+    "id": "S11",
+    "title": "Docling documentation",
+    "url": "https://docling-project.github.io/docling/",
+    "checked": "2026-11-12",
+    "responseSha256": "4cff55c433f5a036a557141153022570b23491ec58a64203b20e6b315e3edaf3",
+    "supports": "Local execution, OCR, layout, tables, code/formula enrichment; capability claims, not this benchmark results."
+  },
+  {
+    "id": "S12",
+    "title": "Mistral basic OCR",
+    "url": "https://docs.mistral.ai/studio/document-processing/basic_ocr",
+    "checked": "2026-11-12",
+    "responseSha256": "40b5c1c8474088d77387d1fefa517bb2437d128288515378807a39a73ca49595",
+    "supports": "Page Markdown, image bounding boxes, table formatting and optional structural blocks."
+  },
+  {
+    "id": "S13",
+    "title": "Mistral OCR 3 model card",
+    "url": "https://docs.mistral.ai/models/ocr-3-25-12",
+    "checked": "2026-11-12",
+    "responseSha256": "b599ab4a123ecc7bab349c2c7a00f3cd03c39f2060f2205bf4f3f9eac161f7c0",
+    "supports": "Pinned mistral-ocr-2512; ordinary $2/1000 pages and annotated $3/1000; OCR 4 is newer."
+  },
+  {
+    "id": "S14",
+    "title": "OpenAI API pricing",
+    "url": "https://developers.openai.com/api/docs/pricing",
+    "checked": "2026-11-12",
+    "responseSha256": "57af767674cca405b46ecf2cbea46941baacbbfc94176faf0a4cd4888c10c3b9",
+    "supports": "Standard short-context model input/output and embedding rates; exclude batch/cache discounts."
+  },
+  {
+    "id": "S15",
+    "title": "OpenAI file inputs",
+    "url": "https://developers.openai.com/api/docs/guides/file-inputs",
+    "checked": "2026-11-12",
+    "responseSha256": "77aff6a9bff617fa5548721fd8dbca11afe08ac508c251e875c21678d71a221f",
+    "supports": "Compatible PDF input uses text and page images; no extraction/marking accuracy guarantee."
+  },
+  {
+    "id": "S16",
+    "title": "OpenAI data controls",
+    "url": "https://developers.openai.com/api/docs/guides/your-data",
+    "checked": "2026-11-12",
+    "responseSha256": "0316e10a5930eba637499d4e7a512d57625e91801e0f8e207f42073eb58808b0",
+    "supports": "Endpoint-specific retention/deletion and data controls require review before private evaluation."
+  },
+  {
+    "id": "S17",
+    "title": "Claude API pricing",
+    "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "checked": "2026-11-12",
+    "responseSha256": "a94bce7294d5b8e8c5f2b15e7d33b47b4a0c25e3862c871dc0608f21f0a339ec",
+    "supports": "Base input/output prices, tokenisation and separate cache/batch schedules."
+  },
+  {
+    "id": "S18",
+    "title": "Cloud Run pricing",
+    "url": "https://cloud.google.com/run/pricing",
+    "checked": "2026-11-12",
+    "responseSha256": "ec78860e0587bfa52e25122276c6f42e03224171ec9654932b5852db406bf3d6",
+    "supports": "Region/mode-specific CPU, memory, transfer and job billing; no unmeasured fixed compute quote."
+  },
+  {
+    "id": "S19",
+    "title": "DeepSeek models and pricing",
+    "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "checked": "2026-11-12",
+    "responseSha256": "027bba6c9e038c25b3cb760ef9f2c803f1325489ebb28c57a97947041033789b",
+    "supports": "deepseek-flash maps to DeepSeek-V4.1-Flash-1017; peak/off-peak cache-miss/cache-hit/output USD prices and timing."
+  },
+  {
+    "id": "S20",
+    "title": "DeepSeek context caching",
+    "url": "https://api-docs.deepseek.com/guides/kv_cache/",
+    "checked": "2026-11-12",
+    "responseSha256": "d36e5887185ebb0b9957a96b33d156549f1e563419e9f8c5564717302c6a8b36",
+    "supports": "Persisted matching prefix units, best-effort hits, expiration and cache-hit/miss usage fields."
+  },
+  {
+    "id": "S21",
+    "title": "DeepSeek thinking mode",
+    "url": "https://api-docs.deepseek.com/guides/thinking_mode/",
+    "checked": "2026-11-12",
+    "responseSha256": "9b6cbb9cc82b7d631751fa14fbb046a4fd3f21029b5e73f8fa68ca00592acccb",
+    "supports": "Thinking is enabled by default at high effort; mode/settings and usage must be controlled."
+  },
+  {
+    "id": "S22",
+    "title": "DeepSeek token usage",
+    "url": "https://api-docs.deepseek.com/quick_start/token_usage/",
+    "checked": "2026-11-12",
+    "responseSha256": "ca3e3de62832560f6417e94cb659c77f6effeea8f8a32f7ab550edba38ef7b95",
+    "supports": "Token estimates differ from actual returned usage; image tokens require separate accounting."
+  }
+]

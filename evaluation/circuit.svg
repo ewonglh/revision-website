@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="160" viewBox="0 0 440 160" role="img" aria-labelledby="title desc">
+  <title id="title">Synthetic XOR functional diagram</title>
+  <desc id="desc">Inputs A and B enter a labelled XOR function block. Its output is Y. This is a functional block, not a transistor or timing diagram.</desc>
+  <g fill="none" stroke="#172e35" stroke-width="2">
+    <path d="M60 50H170M60 110H170M290 80H380"/>
+    <rect x="170" y="30" width="120" height="100" rx="6"/>
+  </g>
+  <g fill="#172e35" font-family="sans-serif" font-size="20">
+    <text x="30" y="57">A</text><text x="30" y="117">B</text>
+    <text x="208" y="87">XOR</text><text x="390" y="87">Y</text>
+  </g>
+</svg>
