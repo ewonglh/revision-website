@@ -252,3 +252,24 @@ produce a wall of unbuildable tickets and make the frontier harder to see.
 
 Recommended next: create issues for **S01.1, S01.2, S02.1, S02.2** only — those are
 buildable today and unblock the rest.
+
+## Promoted so far
+
+| Slice                             | Issue                                                        | Labels            |
+| --------------------------------- | ------------------------------------------------------------ | ----------------- |
+| S01.1 hosting decision            | [#44](https://github.com/ewonglh/revision-website/issues/44) | `ready-for-human` |
+| S01.2 contract freeze             | [#43](https://github.com/ewonglh/revision-website/issues/43) | `ready-for-agent` |
+| S02.1 design tokens               | [#45](https://github.com/ewonglh/revision-website/issues/45) | `ready-for-agent` |
+| S02.2 persistent module selection | [#46](https://github.com/ewonglh/revision-website/issues/46) | `ready-for-agent` |
+
+Every other slice above stays in this document until its blockers clear. That is
+deliberate: an issue that cannot be started is a wish, not a ticket.
+
+## Order I would build in
+
+1. **#44** (decision) — unblocks storage choices; costs no code time.
+2. **#45** (tokens) — everything visual depends on the vocabulary.
+3. **#46** (module persistence) — first user-observable behaviour, and it stress-tests #45.
+4. **#43** (contracts) — needed before any record is persisted, so before S03/S04.
+
+#43 can also run in parallel with #45, since they touch different trees.

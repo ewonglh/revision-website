@@ -147,6 +147,20 @@ refinement as the stage-level deliverable.
 
 **Status:** open.
 
+## A13 — No dark mode in the personal release
+
+**Assumed:** the personal release ships light-only. Tokens are structured so a dark
+theme is a later additive change, not a rewrite.
+
+**Why:** `docs/design.md` describes one warm off-white palette and no dark variant;
+adding one doubles the visual-review surface for every UI slice before the core loop
+exists.
+
+**If wrong:** S02.1 gains a token-parity test and every UI slice gains a second visual
+review pass.
+
+**Status:** provisional.
+
 ---
 
 ## The one thing I need from you first
