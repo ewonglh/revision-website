@@ -25,14 +25,43 @@ const expectedTimesFive = (inputBits) => {
  * merged-header blanks, so a row is only usable when its populated cells happen
  * to form a 12-bit run.
  */
+const isBinaryCell = (cell) => {
+  const text = String(cell ?? '').trim();
+  return /^[01]+$/.test(text);
+};
+
+/**
+ * Pull 4-in / 8-out rows out of a table block's raw data.
+ *
+ * Two layouts are accepted, both observed rather than assumed:
+ * - twelve single-bit cells, which is what `find_tables()` reports for the
+ *   measured 5×A grid;
+ * - two cells holding 4 and 8 bits, for a grid that groups the nibbles.
+ *
+ * Any other split is ambiguous. Joining every digit and searching for a 12-bit
+ * run would silently re-split a 6+6 or 3×4 table as 4-in / 8-out and score it
+ * as though the grouping had been understood, so an unrecognised layout is
+ * skipped and left visible rather than guessed at.
+ */
 export const rowsFromExtractedTable = (block) => {
   const data = block.content?.data ?? [];
   const rows = [];
   for (const row of data) {
-    const digits = (Array.isArray(row) ? row : [row]).map(digitsOf).join('');
-    if (/^[01]{12}$/.test(digits)) {
-      rows.push({ input: digits.slice(0, 4), output: digits.slice(4) });
-    }
+    const cells = (Array.isArray(row) ? row : [row])
+      .map((cell) => String(cell ?? '').trim())
+      .filter((cell) => cell.length > 0);
+    if (!cells.every(isBinaryCell)) continue;
+
+    const total = cells.reduce((length, cell) => length + cell.length, 0);
+    if (total !== 12) continue;
+
+    const singleBits = cells.every((cell) => cell.length === 1);
+    const nibbleGroups =
+      cells.length === 2 && cells[0].length === 4 && cells[1].length === 8;
+    if (!singleBits && !nibbleGroups) continue;
+
+    const digits = cells.join('');
+    rows.push({ input: digits.slice(0, 4), output: digits.slice(4) });
   }
   return rows;
 };

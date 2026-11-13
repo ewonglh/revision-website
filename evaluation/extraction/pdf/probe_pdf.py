@@ -17,14 +17,25 @@ Usage:
 import argparse
 import hashlib
 import json
+import re
 import sys
 
 import pymupdf
 
 # Ranges that indicate silent text-extraction loss on this course material.
 # Reported as signals; deciding what they mean is the Node side's job.
-PUA_RANGES = ((0xE000, 0xF8FF), (0xF000, 0xFFFD))
-CMEX_BIGOP_GLYPHS = set("PXQZ")  # CMEX10 big operators decode to ASCII
+#
+# Only the two real Private Use Area planes. An earlier version also listed
+# 0xF000-0xFFFD, which is *not* private-use: it swallowed Halfwidth/Fullwidth
+# Forms and CJK Compatibility Ideographs, so ordinary fullwidth punctuation was
+# reported as a lost glyph. The measured U+F0xx symbols are inside 0xE000-0xF8FF.
+PUA_RANGES = ((0xE000, 0xF8FF), (0xF0000, 0xFFFFD))
+# CMEX10 big operators (sum, product, integral) decode to these ASCII letters in
+# this course material's TeX output. A run of them means `sum_{i}` may now read
+# as `P_i`, which looks plausible and is wrong.
+CMEX_BIGOP_GLYPHS = frozenset("PXQZ")
+# `Pk i=1` / `Xn j=0`: decoded operator, bare upper bound, then a lower bound.
+BIG_OPERATOR_PATTERN = re.compile(r"[PXQZ][A-Za-z]\s+[A-Za-z]\s*=\s*[0-9A-Za-z]")
 REPLACEMENT_CHAR = "�"
 
 
@@ -42,6 +53,24 @@ def classify_char(ch: str) -> str | None:
     return None
 
 
+def big_operator_signals(text: str) -> int:
+    """Count CMEX10 big operators that decoded into ASCII text.
+
+    Measured trace on this material: `sum_{i=1}^{k} p_i` extracts as
+    `Pk i=1 pi` -- the operator letter, its upper bound as a bare letter, then
+    the lower bound. That shape is what is counted.
+
+    Deliberately narrow. A bare `P` or `X` cannot be distinguished from ordinary
+    prose (`Plain`, `Xray`), so a letter alone is not evidence, and widening the
+    rule produced false positives on clean English in testing. This will miss
+    decodings that do not match the bound pattern; under-reporting is the
+    intended direction, because a missed flag is caught in review while a false
+    `clean` is what this project keeps being bitten by. Reported as a candidate
+    signal in `lossSignals`, never as a verdict.
+    """
+    return len(BIG_OPERATOR_PATTERN.findall(text))
+
+
 def loss_signals(text: str) -> dict:
     """Count characters that indicate the text layer lost information."""
     counts: dict[str, int] = {}
@@ -49,6 +78,9 @@ def loss_signals(text: str) -> dict:
         signal = classify_char(ch)
         if signal:
             counts[signal] = counts.get(signal, 0) + 1
+    bigops = big_operator_signals(text)
+    if bigops:
+        counts["big-operator-glyph"] = bigops
     return counts
 
 

@@ -76,6 +76,11 @@ export const describeLoss = (lossSignals = {}) => {
       `${lossSignals['private-use-area']} private-use-area characters; symbol glyphs have no standard mapping`,
     );
   }
+  if (lossSignals['big-operator-glyph']) {
+    reasons.push(
+      `${lossSignals['big-operator-glyph']} big-operator glyphs decoded to ASCII letters; a sum or product reads as a variable`,
+    );
+  }
   if (lossSignals['replacement-char']) {
     reasons.push(
       `${lossSignals['replacement-char']} replacement characters; bytes were lost, not merely unassigned`,
@@ -222,8 +227,35 @@ export const pageRecord = (page, revision, { imageSha256 = null } = {}) => {
   const kind = classifyPage(page);
   const blocks = [];
 
+  // Ruled data grids are emitted regardless of the page's dominant kind. A
+  // short-text page with a real grid used to classify as `prose` and drop the
+  // table entirely; `find_tables()` is the best-measured route in the pack, so
+  // discarding its output is the worst available failure.
+  const gridBlocks = () => {
+    const usable = dataTablesOf(page);
+    usable.forEach((table, index) => {
+      blocks.push(tableBlock(table, pageNumber, index));
+    });
+    const figures = figureTablesOf(page);
+    if (figures.length > 0) {
+      // Figures that `find_tables()` mistook for grids are recorded as
+      // diagrams, not discarded: the box is real content, just not data.
+      blocks.push({
+        ...diagramBlock(page, pageNumber),
+        content: {
+          ...diagramBlock(page, pageNumber).content,
+          boxedFiguresDetected: figures.length,
+          reason:
+            'ruled boxes with mostly empty cells; treated as figures, not tables',
+        },
+      });
+    }
+  };
+
   if (kind === 'scanned') {
     blocks.push(scannedBlock(page, pageNumber));
+    // A raster page can still carry a text-layer grid.
+    gridBlocks();
   } else if (kind === 'empty') {
     // Nothing to record. Stated explicitly rather than left as an empty array
     // that could be mistaken for a failed extract.
@@ -237,29 +269,13 @@ export const pageRecord = (page, revision, { imageSha256 = null } = {}) => {
     });
   } else if (kind === 'diagram') {
     blocks.push(diagramBlock(page, pageNumber));
+    gridBlocks();
     if (page.text.nonWhitespace > 0) blocks.push(proseBlock(page, pageNumber));
   } else if (kind === 'table') {
-    const usable = dataTablesOf(page);
-    usable.forEach((table, index) => {
-      blocks.push(tableBlock(table, pageNumber, index));
-    });
-    // Figures that `find_tables()` mistook for grids are recorded as diagrams,
-    // not discarded: the box is real content, just not tabular data. Recording
-    // the count keeps the distinction visible.
-    const figures = figureTablesOf(page);
-    if (figures.length > 0) {
-      blocks.push({
-        ...diagramBlock(page, pageNumber),
-        content: {
-          ...diagramBlock(page, pageNumber).content,
-          boxedFiguresDetected: figures.length,
-          reason:
-            'ruled boxes with mostly empty cells; treated as figures, not tables',
-        },
-      });
-    }
+    gridBlocks();
     if (page.text.nonWhitespace > 0) blocks.push(proseBlock(page, pageNumber));
   } else {
+    gridBlocks();
     blocks.push(proseBlock(page, pageNumber));
   }
 

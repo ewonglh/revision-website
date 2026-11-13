@@ -83,7 +83,11 @@ Deterministic signals only — no model call:
 circuit gate symbol came back as an 8×3 "table" with 1 filled cell, producing 17
 spurious tables out of 20.
 
-The filter thresholds come from the measured distribution, not intuition:
+The filter thresholds come from the measured distribution, not intuition. These
+figures are **carried over from the earlier probe recorded in
+[the dossier](../../docs/evaluation/README.md)**; this PR's tests run on hand-built
+fixtures and do not re-measure the pack. Reproducing them needs the private pack and
+a Python install, and no record of that run is committed:
 
 | Grid            | Fill ratio          | Verdict                          |
 | --------------- | ------------------- | -------------------------------- |
@@ -113,6 +117,21 @@ The summary measures extraction **coverage, not fidelity**.
 - Deterministic routes only. No provider call, no vision, no netlist reconstruction.
 - Scanned pages are flagged for the vision route, not read.
 - `score-tables.mjs` currently checks the `5×A` relationship only. Other tables need
-  their own checker.
+  their own checker. It accepts only the two observed row layouts — twelve
+  single-bit cells, or a 4-bit and an 8-bit cell — and skips any other grouping
+  rather than guessing how to split it.
+- **`printedLabel` is always `null`.** The field exists so a later pass can fill
+  it, but nothing in the probe or the classifier reads a printed label such as
+  "Table 1" off the page. A block's anchor is page plus bounding box only.
+- **`imageSha256` is `null` on the CLI path.** `pageRecord` accepts a render hash
+  and the unit tests supply one, but `extract-document.mjs` does not render pages,
+  so a real run cannot yet prove which render a repair was made against.
+- Loss signals are candidates, not verdicts. Big-operator detection matches the
+  measured `Pk i=1` decoding shape and deliberately under-reports rather than
+  flagging ordinary prose; a symbol block is still `unreviewed`. The PUA range is
+  the two real private-use planes — an earlier version included `0xF000-0xFFFD`,
+  which incorrectly flagged fullwidth and CJK characters.
+- Grids are emitted for every page with a data grid, whatever the page's dominant
+  kind. A short-text page or a wire-heavy page still yields its table blocks.
 - No accuracy claim is possible without reviewed gold. See the gates in
   [the dossier](../../docs/evaluation/README.md).

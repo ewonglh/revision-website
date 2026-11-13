@@ -224,6 +224,134 @@ describe('pageRecord', () => {
   });
 });
 
+describe('regressions from independent review', () => {
+  const grid = (rows, cols, value = '1') =>
+    Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => value),
+    );
+
+  it('keeps a real grid even when the page text is shorter than the table threshold', () => {
+    // A genuine 12x12 grid on a page with 99 non-whitespace characters used to
+    // classify as prose and drop the table entirely.
+    const record = pageRecord(
+      page({
+        text: { chars: 99, nonWhitespace: 99, sha256: 'x', preview: 'short' },
+        tables: [
+          {
+            rows: 12,
+            cols: 12,
+            cellsTotal: 144,
+            cellsFilled: 126,
+            blankCells: 18,
+            bbox: [10, 20, 400, 300],
+            data: grid(12, 12),
+          },
+        ],
+      }),
+      'rev',
+    );
+    expect(record.blocks.some((block) => block.type === 'table')).toBe(true);
+    expect(record.unclear).toEqual([]);
+  });
+
+  it('keeps two tables on a short-text page with distinct anchors', () => {
+    const tableAt = (bbox) => ({
+      rows: 4,
+      cols: 4,
+      cellsTotal: 16,
+      cellsFilled: 16,
+      blankCells: 0,
+      bbox,
+      data: grid(4, 4),
+    });
+    const record = pageRecord(
+      page({
+        text: { chars: 40, nonWhitespace: 40, sha256: 'x', preview: 'tiny' },
+        tables: [tableAt([0, 0, 100, 100]), tableAt([200, 200, 300, 300])],
+      }),
+      'rev',
+    );
+    const tables = record.blocks.filter((block) => block.type === 'table');
+    expect(tables).toHaveLength(2);
+    expect(tables[0].anchor.bbox).not.toEqual(tables[1].anchor.bbox);
+    expect(tables[0].anchor.ordinal).not.toBe(tables[1].anchor.ordinal);
+  });
+
+  it('keeps a ruled grid on a page classified as a diagram', () => {
+    // Text sits below the table threshold while vectors dominate, so the page
+    // classifies as a diagram. The grid must still be emitted.
+    const record = pageRecord(
+      page({
+        text: { chars: 70, nonWhitespace: 70, sha256: 'x', preview: 'wires' },
+        drawings: {
+          objects: 40,
+          segments: { horizontal: 25, vertical: 25, other: 0 },
+        },
+        tables: [
+          {
+            rows: 8,
+            cols: 4,
+            cellsTotal: 32,
+            cellsFilled: 32,
+            blankCells: 0,
+            bbox: [0, 0, 100, 100],
+            data: grid(8, 4),
+          },
+        ],
+      }),
+      'rev',
+    );
+    expect(record.kind).toBe('diagram');
+    expect(record.blocks.some((block) => block.type === 'table')).toBe(true);
+    expect(record.blocks.some((block) => block.type === 'diagram')).toBe(true);
+  });
+
+  it('names big-operator loss separately from PUA loss', () => {
+    const reasons = describeLoss({
+      'private-use-area': 2,
+      'big-operator-glyph': 3,
+    });
+    expect(reasons).toHaveLength(2);
+    expect(reasons.some((reason) => reason.includes('big-operator'))).toBe(
+      true,
+    );
+    expect(reasons.some((reason) => reason.includes('private-use-area'))).toBe(
+      true,
+    );
+  });
+
+  it('raises a loss block for a big-operator signal', () => {
+    const record = pageRecord(
+      page({ lossSignals: { 'big-operator-glyph': 4 } }),
+      'rev',
+    );
+    expect(record.blocks.some((block) => block.type === 'math')).toBe(true);
+    expect(record.unclear.some((entry) => entry.includes('big-operator'))).toBe(
+      true,
+    );
+  });
+
+  it('does not re-split an ambiguous 6+6 table as 4-in / 8-out', () => {
+    const ambiguous = {
+      type: 'table',
+      anchor: { page: 1, ordinal: 1 },
+      content: { data: [['010101', '010101']] },
+    };
+    expect(scoreTimesFive(ambiguous).rowsScored).toBe(0);
+  });
+
+  it('accepts a grid that groups 4 input bits and 8 output bits', () => {
+    const grouped = {
+      type: 'table',
+      anchor: { page: 1, ordinal: 1 },
+      content: { data: [['0010', '00010000']] },
+    };
+    const result = scoreTimesFive(grouped);
+    expect(result.rowsScored).toBe(1);
+    expect(result.rowsCorrect).toBe(1);
+  });
+});
+
 describe('coverageSummary', () => {
   const probe = {
     kind: 'pdf-structure-probe',
