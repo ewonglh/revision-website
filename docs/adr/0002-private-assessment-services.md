@@ -1,18 +1,49 @@
 # ADR 0002: Evaluate private assessment service boundaries before backend selection
 
-Status: **proposed, not accepted**. Date: 12 November 2026. Parent: [#2](https://github.com/ewonglh/revision-website/issues/2); research slice [#25](https://github.com/ewonglh/revision-website/issues/25); decision review [#30](https://github.com/ewonglh/revision-website/issues/30).
+Status: **partly accepted — personal-use hosting accepted 14 November 2026; multi-user, identity, retention, quality thresholds and deadline policy remain proposed, not accepted**. Date: 12 November 2026. Parent: [#2](https://github.com/ewonglh/revision-website/issues/2); research slice [#25](https://github.com/ewonglh/revision-website/issues/25); hosting decision [#44](https://github.com/ewonglh/revision-website/issues/44); architecture review gate [#30](https://github.com/ewonglh/revision-website/issues/30).
 
 ## Context
 
 ADR 0001 accepts the static React/Vite frontend on Cloudflare Pages. Source ingestion, private persistence, retrieval and criterion marking need a backend. A first private pack of 55 pages has since been received and probed locally; it contains tutorial sheets and solutions for ST2132 and lecture decks for both modules, but no MIPS program, no rubric-labelled multipart proof and no reviewed grading benchmark. The owner can supply further lecture notes/tutorials/solutions for both modules and CS2100 Canvas questions; prefers typed answers with provisional AI marks/manual review; and targets **$20/month for grading calls** plus a **separate $100/month for ingesting source files and syllabus content** through a custom provider, at about 1,000 submitted answers/day and a library below 100 MB. The owner specifies DeepSeek-V4.1-Flash-1017 at official API rates, microdollar billing (USD), and 1,000 submitted answers/day. Custom-provider passthrough and actual consumption remain untested. The reference site supplies no evidence of its internal architecture. A documentation comparison, a small synthetic baseline and a text-layer probe can bound the next experiments but cannot select reliable marking routes.
 
-## Proposed decision
+## Accepted decision: personal-use hosting
+
+Accepted 14 November 2026 by the owner (issue [#44](https://github.com/ewonglh/revision-website/issues/44); reasoning in [the hosting memo](../refinement/s01-1-hosting-memo.md)). This is the **only** part of this ADR that is accepted.
+
+| Piece                       | Choice                                    | Why                                             |
+| --------------------------- | ----------------------------------------- | ----------------------------------------------- |
+| Frontend                    | Static React/Vite on Cloudflare Pages     | ADR 0001, already accepted and unchanged        |
+| Key holder + provider proxy | One Cloudflare Worker                     | The only place the provider key exists          |
+| Attempts and results        | D1 (free tier)                            | One user's volume is far below the free tier    |
+| Extraction and marking      | Synchronous request, bounded time         | No queue or durable workflow at personal volume |
+| Identity                    | Cloudflare Access, or a long-lived cookie | One user; no multi-tenant model                 |
+| Secrets                     | Worker secrets only                       | Never in the repo, the bundle or a request body |
+
+The forcing constraint is single: the provider key cannot reach the browser. A static build ships any bundled value to anyone who opens devtools, `AGENTS.md` forbids committing secrets, `docs/feature-spec.md` requires credentials never become browser-visible configuration, and Vite inlines `VITE_`-prefixed variables into the bundle by design.
+
+**Cost, as owner targets rather than measurements:** Pages, Worker and D1 free tiers; plus the two provider budgets in the Context above. No billed call has run, so no figure here is verified.
+
+**Checks that would prove the shape** (run at the personal release, S14):
+
+1. The key never reaches the client — grep the built `dist/` and watch a network request in devtools; neither contains it.
+2. A saved attempt survives a page reload and a browser restart.
+3. A failed provider call produces a visible error, not a blank mark and not a fabricated zero.
+4. The key can be rotated by changing one Worker secret, with no frontend deploy.
+5. D1 unavailability leaves the attempt in a local draft rather than losing it.
+
+**Explicitly deferred, not evaluated:** multi-tenant identity and row-level security; service-role bypass review; outbox dispatch and at-least-once semantics; fenced lease tokens; per-block solution authorisation inside a shared PDF; invited-pilot release policy; retention and deletion of other people's data; the failure-recovery matrix in [contracts](../evaluation/contracts.md). A second user is the trigger to revisit all of it.
+
+**What would invalidate the accepted rows:** marking running longer than a Worker request may (a queue becomes necessary, so the synchronous row fails); D1's limits or backup story proving unacceptable (the storage row changes to managed Postgres; the frontend and Worker rows are unaffected); or a second user being added.
+
+Accepting this does **not** close [#30](https://github.com/ewonglh/revision-website/issues/30). #44 recorded the hosting decision; #30 remains this ADR's human review gate for the wider architecture, and stays open until the evidence in #26–#29 exists.
+
+## Proposed decision (not accepted)
 
 Preserve the static frontend. Separate authenticated owner-scoped APIs and authoritative attempt state, private immutable originals/derived assets, durable bounded jobs, authorised evidence retrieval and versioned assessment results. Treat source access, hidden-solution release and learner response ownership independently. A model supplies AI review; only an actually run deterministic/executed/formal checker supplies its corresponding evidence.
 
 Shortlist (A) Workers/D1/R2/Workflows with a separately chosen identity service and optional Vectorize, and (B) managed Postgres/Auth/Storage with an explicit durable worker. Permit separate native processing compute for extraction/checkers in either option. Start real intake with a tiny manually reviewed pack if automated extraction repair is expensive. Use portable versioned JSON contracts and checkpointed jobs; do not implement all candidate services.
 
-Neither backend candidate, model route, identity provider, retention policy, quality threshold nor strict-deadline proposal is accepted by this ADR. Details and evidence: [evaluation dossier](../evaluation/README.md), [contracts](../evaluation/contracts.md) and [dated cost worksheet](../evaluation/costs.md).
+Neither shortlisted backend candidate, model route, identity provider, retention policy, quality threshold nor strict-deadline proposal is accepted by this ADR beyond the personal-use hosting rows above. Details and evidence: [evaluation dossier](../evaluation/README.md), [contracts](../evaluation/contracts.md) and [dated cost worksheet](../evaluation/costs.md).
 
 ## Alternatives and tradeoffs
 
