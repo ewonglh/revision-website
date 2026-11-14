@@ -20,30 +20,30 @@ wrong, the affected slices are named there so they can be corrected in one pass.
 
 ## Summary
 
-| Stage                     | Slices     | Earliest start     | Blocked by owner input? |
-| ------------------------- | ---------- | ------------------ | ----------------------- |
-| S01 architecture          | 4          | now (2 of 4)       | 2 of 4                  |
-| S02 workspace design      | 4          | now                | no                      |
-| S03 offerings/profiles    | 3          | after S01.3, S02.2 | no                      |
-| S04 import/review         | 4          | after S03.1        | no                      |
-| S05 multipart attempts    | 3          | after S04.3        | no                      |
-| S06 choices/short answers | 3          | after S04.3        | no                      |
-| S07 MIPS/circuit capture  | 3          | after S04.3        | no                      |
-| S08 criterion marking     | 4          | after S05.1        | partly                  |
-| S09 ST2132 marking        | 3          | after S08.2, #29   | yes                     |
-| S10 CS2100 marking        | 3          | after S08.2, #29   | yes                     |
-| S11 review/planning       | 4          | after S09/S10      | no                      |
-| S12 timed papers          | 3          | after S05–S08      | no                      |
-| S13 notes/recall          | 3          | after S08.1        | no                      |
-| S14 personal release      | 4          | after S11–S13      | no                      |
-| S15 Canvas connector      | 3          | after S14          | yes (Canvas access)     |
-| S16 generated practice    | 3          | after S14          | no                      |
-| S17 essay assessment      | 2          | after S14          | yes (target module)     |
-| S18 forecasts             | 2          | after S11 + data   | no                      |
-| S19 invited sharing       | 3          | after S14          | no                      |
-| S20 public operation      | 2          | after S19          | no                      |
-| S21 lint advisory         | done (#40) | —                  | no                      |
-| #26–#30 evaluation        | see below  | partially          | yes                     |
+| Stage                     | Slices    | Earliest start      | Blocked by owner input?       |
+| ------------------------- | --------- | ------------------- | ----------------------------- |
+| S01 architecture          | 4         | now (S01.1, S01.2)  | 2 of 4 (field names, numbers) |
+| S02 workspace design      | 4         | now                 | no                            |
+| S03 offerings/profiles    | 3         | after S01.1, S02.2  | no                            |
+| S04 import/review         | 4         | after S03.1         | no                            |
+| S05 multipart attempts    | 3         | after S04.3         | no                            |
+| S06 choices/short answers | 3         | after S04.3         | no                            |
+| S07 MIPS/circuit capture  | 3         | after S04.3         | no                            |
+| S08 criterion marking     | 4         | after S05.1         | no (owner review gates)       |
+| S09 ST2132 marking        | 3         | after #26 labels    | yes (#26 labels)              |
+| S10 CS2100 marking        | 3         | after S06.3         | no (assessment gates)         |
+| S11 review/planning       | 4         | after S09/S10       | no                            |
+| S12 timed papers          | 3         | after S05–S08       | no                            |
+| S13 notes/recall          | 3         | after S08.1         | no                            |
+| S14 personal release      | 4         | after S11–S13       | no                            |
+| S15 Canvas connector      | 3         | owner Canvas access | yes (Canvas access)           |
+| S16 generated practice    | 3         | after S14           | no                            |
+| S17 essay assessment      | 2         | after S14           | yes (target module)           |
+| S18 forecasts             | 2         | after S11 + data    | no                            |
+| S19 invited sharing       | 3         | after S14           | no                            |
+| S20 public operation      | 2         | after S19           | no                            |
+| S21 lint advisory         | delivered | —                   | no                            |
+| #26–#30 evaluation        | see below | partially           | yes                           |
 
 ---
 
@@ -235,23 +235,28 @@ drawing still needs a confirmed interpretation before it can be checked.
 
 These are already well specified; they need input, not more decomposition.
 
-| Issue | What it is waiting for                               | Decision                                                                                      |
-| ----- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| #26   | Reviewed rubrics, conventions, held-out subset       | Split into #26.1 provenance (PR #36), #26.2 ST2132 rubric, #26.3 CS2100 partial-credit labels |
-| #27   | Billed provider pass, timed repair minutes           | Harness exists (PR #32); remaining work is measurement                                        |
-| #28   | Frozen question/answer pairs with confirmed passages | Not startable without #26 labels                                                              |
-| #29   | #26 labels, thresholds agreed before claims          | Not startable                                                                                 |
-| #30   | Nothing for the personal half                        | **Decision-ready now** — see S01.1                                                            |
-| #35   | #30 hosting shape and an attempt interface           | Parked; becomes S05.2                                                                         |
+| Issue | What it is waiting for                                  | Decision                                                                                                                                                        |
+| ----- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #26   | Reviewed rubrics, conventions, held-out subset          | **Proposed** split, no children created yet: provenance via PR #36 (solutions only), ST2132 rubric labels, CS2100 partial-credit labels. Estimated, not decided |
+| #27   | Billed provider pass, timed repair minutes              | Harness exists (PR #32); remaining work is measurement                                                                                                          |
+| #28   | Frozen question/answer pairs with confirmed passages    | Not startable without #26 labels                                                                                                                                |
+| #29   | #26 labels, thresholds agreed before claims             | Not startable                                                                                                                                                   |
+| #30   | #26–#29 evidence, then human review of costs and limits | Hosting decision moves to #44; #30 stays the ADR's review gate                                                                                                  |
+| #35   | A real attempt interface above a local store            | Parked; two of its three checks become S05.2; the rest need a deployed Worker                                                                                   |
 
 ## What I did not do, and why
 
-I did not create 60 GitHub issues. The workflow forbids dispatching a backlog merely
+I did not create 63 GitHub issues. The workflow forbids dispatching a backlog merely
 because it exists, and most slices above are blocked. Creating them all now would
 produce a wall of unbuildable tickets and make the frontier harder to see.
 
-Recommended next: create issues for **S01.1, S01.2, S02.1, S02.2** only — those are
-buildable today and unblock the rest.
+All four buildable slices are now issues (see below). Nothing else was promoted.
+
+S21 is marked **delivered** above rather than done: the override shipped in #40/PR #41
+with ADR 0003, but stage epic **#22 is still open** and still `needs-triage`. That is a
+loose end this document found rather than a slice: #22 can be closed as satisfied, or
+left open until a 10.x minimatch fix makes the override removable. The workflow says to
+close an issue once its work merges, so closing it is the more consistent choice.
 
 ## Promoted so far
 

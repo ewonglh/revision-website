@@ -31,9 +31,13 @@ not a further decision.
 **Assumed:** saved attempts live in D1 behind the Worker; localStorage is used only
 for per-viewer convenience such as the last-selected module.
 
-**Why:** the feature spec requires work to survive a browser restart and to be
-recoverable, and S14's release gate asks for saved-work recovery. Browser storage
-cannot honestly satisfy that.
+**Why:** not because browser storage is unsafe — it survives a restart quite happily.
+The feature spec requires that drafts "show when they cannot reach the server"
+(`docs/feature-spec.md:372`), that saved work survives refresh with retry/resume for
+interrupted marking (`:374`, scenario A09), and S14's release gate asks for real
+saved-work recovery. A local-only store can satisfy none of the "cannot reach the
+server" or recovery clauses honestly, because it cannot distinguish a saved attempt
+from one the server never received.
 
 **If wrong:** S02.2 could use localStorage, but S05.2 could not, so the split would
 need redoing later.
@@ -70,10 +74,13 @@ would let the two drift.
 
 **Assumed:** both are official teaching-team solutions.
 
-**Why:** PR #36's diff marks both files official while its _description_ said it
-extended provenance to `T6_sol` only. I treated that as a stale description rather
-than a contradiction in the change, because the commit message states the owner
-confirmed `T7_sol` too. I corrected the PR description to match the commit.
+**Why:** PR #36's diff marks both files official. Its _description_ originally said it
+extended provenance to `T6_sol` only, while its commit said the owner had confirmed
+`T7_sol` as well; I treated the description as stale and corrected it rather than
+changing the diff. That inference is what you confirmed on 14 November, so the history
+now agrees with itself. Note what this does **not** settle: `tut07_selected_ans.pdf`
+still does not state which questions were omitted, and official provenance supplies no
+per-criterion or partial-credit labels — which is the part #26 actually needs.
 
 **If wrong:** one line in `docs/evaluation/README.md` reverts to "assumed". No code
 depends on it, but #26's gold-label gate does.
@@ -83,10 +90,10 @@ inference recorded above was correct, so PR #36's wording stands and #26's gold-
 gate can treat both files as official. It still supplies no per-criterion marks, which
 is the part #26 has to produce.
 
-## A06 — Refinement output lives in the repo, not in 60 issues
+## A06 — Refinement output lives in the repo, not in 63 issues
 
-**Assumed:** a single `docs/refinement/backlog.md` plus this log, with only the
-immediately buildable slices promoted to GitHub issues.
+**Assumed:** a single `docs/refinement/backlog.md` (63 slices) plus this log, with only
+the immediately buildable slices promoted to GitHub issues.
 
 **Why:** `docs/workflow.md` forbids dispatching a backlog merely because it exists.
 Creating ~60 blocked tickets would bury the four that can actually start.

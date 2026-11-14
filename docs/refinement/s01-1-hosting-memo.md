@@ -16,20 +16,23 @@ deferred rather than evaluated.
 ## The one constraint that forces a server
 
 The provider key cannot live in the browser. A static build on Cloudflare Pages ships
-any bundled value to anyone who opens devtools, and `AGENTS.md` forbids secrets in
-Vite environment variables. Everything else in this memo follows from that single
+any bundled value to anyone who opens devtools. Three documents agree: `AGENTS.md`
+forbids committing secrets; `docs/feature-spec.md` requires that credentials never
+become browser-visible application configuration; and Vite's `VITE_`-prefixed
+variables are inlined into the bundle by design, so they cannot hold a secret even if
+one were never committed. Everything else in this memo follows from that single
 requirement.
 
 ## Recommended shape
 
-| Piece                       | Choice                                    | Why                                                      |
-| --------------------------- | ----------------------------------------- | -------------------------------------------------------- |
-| Frontend                    | Static React/Vite on Cloudflare Pages     | ADR 0001, already accepted                               |
-| Key holder + provider proxy | One Cloudflare Worker                     | The only place the key exists                            |
-| Attempts and results        | D1 (free tier)                            | ~1,000 answers/day for one person is far below any limit |
-| Extraction and marking      | Synchronous request, bounded time         | No queue or durable workflow at personal volume          |
-| Identity                    | Cloudflare Access, or a long-lived cookie | One user; no multi-tenant model                          |
-| Secrets                     | Worker secrets only                       | Never in the repo, the bundle or a request body          |
+| Piece                       | Choice                                    | Why                                                                                                                       |
+| --------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Frontend                    | Static React/Vite on Cloudflare Pages     | ADR 0001, already accepted                                                                                                |
+| Key holder + provider proxy | One Cloudflare Worker                     | The only place the key exists                                                                                             |
+| Attempts and results        | D1 (free tier)                            | One user's volume is far below D1's free tier; the 1,000/day figure is a throughput target, not a measurement (see below) |
+| Extraction and marking      | Synchronous request, bounded time         | No queue or durable workflow at personal volume                                                                           |
+| Identity                    | Cloudflare Access, or a long-lived cookie | One user; no multi-tenant model                                                                                           |
+| Secrets                     | Worker secrets only                       | Never in the repo, the bundle or a request body                                                                           |
 
 ## What this buys
 
@@ -50,9 +53,18 @@ requirement.
 No measured figure exists for actual provider spend at your volume. The budgets are
 owner targets, not estimates this memo can verify.
 
+The **1,000 submitted answers/day** figure in `docs/evaluation/` is a throughput
+target the owner set, and #26 still asks for it to be confirmed or revised; it is not a
+measured personal volume. Nothing here depends on it: one person's real volume is
+smaller than any figure the plan carries, and the D1 row would only need revisiting if
+that target turned out to be a per-user multiplier for an invited pilot.
+
 ## Acceptance checks that would prove it
 
-These are the checks S14 and #35 should run, stated now so the decision is testable:
+These are the checks **S14** should run, stated now so the decision is testable. Two of
+them (2 and 3) are also within **#35**'s boundary, which is deterministic lifecycle
+tests against a local or in-memory store; the other three need a deployed Worker, real
+secrets or real D1, which #35 explicitly excludes.
 
 1. **The key never reaches the client.** Grep the built `dist/` for the key and watch
    a network request in devtools; neither may contain it.
@@ -91,6 +103,22 @@ decisions this memo has not made.
 **Recommendation:** amend ADR 0002 to record the personal-use hosting decision as
 accepted, and leave the multi-user section proposed. That keeps one ADR rather than
 splitting into a fourth, while making the accepted scope unambiguous.
+
+### How #30 and #44 divide the work
+
+They currently overlap: both ask for the same ADR amendment. They should not:
+
+- **#44** records the accepted _hosting shape_ — this memo, in the ADR's status line
+  and its accepted-scope section.
+- **#30** stays the ADR's **human-review gate** for the whole architecture, exactly as
+  ADR 0002:28 says ("human review in #30 of costs, failure scenarios and retained
+  limitations"). It stays open and `needs-info` until #26–#29 supply the evidence that
+  gate is waiting for.
+
+So amending the ADR via #44 does **not** close #30, and must not read as if it did. The
+amendment should name #44 as the recorder of the hosting decision and restate #30 as the
+remaining acceptance path, so the ADR does not end up claiming an acceptance it has not
+been given.
 
 ## What this memo does not establish
 

@@ -39,11 +39,13 @@ Human gates attach to the affected implementation issue and revision; they are n
 
 ## Current refinement
 
-Every open stage has been decomposed into named slices with blockers, gates and
-acceptance shape in [refinement/backlog.md](refinement/backlog.md). Only slices that
-can actually start were promoted to issues; the rest stay in that document so the
-unblocked frontier stays visible. Judgement calls made during refinement, and what
-changes if any of them is wrong, are recorded in
+Every open stage that still has work in front of it has been decomposed into named
+slices with blockers, gates and acceptance shape in
+[refinement/backlog.md](refinement/backlog.md) — 63 slices across S01–S20. (S21's
+implementation already merged in #40; its epic #22 is a bookkeeping decision, not a
+slice.) Only slices that can actually start were promoted to issues; the rest stay in
+that document so the unblocked frontier stays visible. Judgement calls made during
+refinement, and what changes if any of them is wrong, are recorded in
 [refinement/assumptions.md](refinement/assumptions.md) — amend that file rather than
 re-deriving the decisions.
 
