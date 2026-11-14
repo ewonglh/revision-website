@@ -21,7 +21,10 @@ ship to the browser.
 **If wrong:** S01.1, S03.1, S05.2, S08.1 change. Any managed-Postgres choice instead
 of D1 mostly moves the storage slice, not the UI slices.
 
-**Status:** open. This is the most consequential item here.
+**Status:** **confirmed by you, 14 November 2026** — "im fine with it, cloudflare
+worker is free". The Worker row is confirmed on cost grounds as well as the secret
+constraint. Still owed: the ADR 0002 amendment itself, which is #44's remaining work,
+not a further decision.
 
 ## A02 — Attempt storage is server-side, not localStorage
 
@@ -47,7 +50,9 @@ auth now would be multi-tenant scaffolding for one person.
 
 **If wrong:** S03.1 and S19.1 grow substantially.
 
-**Status:** open.
+**Status:** the one-user half is implied by A01's confirmation; the mechanism
+(Cloudflare Access versus a long-lived cookie) is deliberately still open and belongs
+to S03.1. Nothing here is multi-tenant.
 
 ## A04 — The evaluation dossier stays the source of truth for limits
 
@@ -73,8 +78,10 @@ confirmed `T7_sol` too. I corrected the PR description to match the commit.
 **If wrong:** one line in `docs/evaluation/README.md` reverts to "assumed". No code
 depends on it, but #26's gold-label gate does.
 
-**Status:** resolved by inference, not by a written owner statement I could find.
-Worth a one-word confirmation from you.
+**Status:** **confirmed by you, 14 November 2026** — "t7 sol is verified". The
+inference recorded above was correct, so PR #36's wording stands and #26's gold-label
+gate can treat both files as official. It still supplies no per-criterion marks, which
+is the part #26 has to produce.
 
 ## A06 — Refinement output lives in the repo, not in 60 issues
 
@@ -165,5 +172,6 @@ review pass.
 
 ## The one thing I need from you first
 
-**A01 (hosting shape)** and **A05 (T7_sol provenance)**. A01 unlocks the largest
-number of slices; A05 is a factual contradiction in the repo today.
+Nothing decided so far is blocking. A01 and A05 are both confirmed (14 November
+2026). The next genuine owner input is whichever of A10 (essay module) or A11 (Canvas
+access) the roadmap reaches first — both are blocked behind S14 anyway.

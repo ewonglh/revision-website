@@ -1,6 +1,8 @@
 # S01.1 — Personal hosting decision memo
 
-Status: proposal for owner sign-off. Date: 14 November 2026.
+Status: **owner-approved 14 November 2026** ("im fine with it, cloudflare worker is
+free"). The remaining work is the ADR 0002 amendment described at the end, not another
+decision. Date: 14 November 2026.
 Related: [ADR 0002](../adr/0002-private-assessment-services.md) (proposed),
 [#30](https://github.com/ewonglh/revision-website/issues/30), assumption A01 in
 [assumptions.md](assumptions.md).
